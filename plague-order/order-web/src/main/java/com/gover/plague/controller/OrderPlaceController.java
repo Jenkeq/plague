@@ -6,6 +6,7 @@ import com.gover.plague.req.OrderPlaceReq;
 import com.gover.plague.value.OrderId;
 import com.gover.plague.vo.OrderPlaceVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ public class OrderPlaceController {
     private OrderPlaceService orderPlaceService;
 
     @PostMapping("find")
-    public OrderPlaceVO findOrder(@RequestBody OrderPlaceReq req){
+    public ResponseEntity<OrderPlaceVO> findOrder(@RequestBody OrderPlaceReq req){
         return orderPlaceService.findOrder(req);
     }
 }

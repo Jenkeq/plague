@@ -7,6 +7,7 @@ import com.gover.plague.req.OrderPlaceReq;
 import com.gover.plague.value.OrderId;
 import com.gover.plague.vo.OrderPlaceVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -27,12 +28,10 @@ public class OrderPlaceServiceImpl implements OrderPlaceService {
      * @return
      */
     @Override
-    public OrderPlaceVO findOrder(OrderPlaceReq req) {
+    public ResponseEntity<OrderPlaceVO> findOrder(OrderPlaceReq req) {
         Order order = orderPlaceRepository.findOrder(new OrderId(req.getOrderId()));
 
-
-        OrderPlaceVO vo = new OrderPlaceVO();
-        vo.setGoodsId(order.getGoodsId().getId());
-        return vo;
+        // 返回
+        return ResponseEntity.ok(OrderPlaceVO.builder().goodsId(order.getGoodsId().getId()).build());
     }
 }
