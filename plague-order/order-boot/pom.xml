@@ -17,50 +17,71 @@
     </properties>
 
     <dependencies>
+<!--        其他子模块-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>com.gover.plague</groupId>
+            <artifactId>plague-order-web</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
+            <groupId>com.gover.plague</groupId>
+            <artifactId>plague-order-persistence</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.gover.plague</groupId>
+            <artifactId>plague-order-service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+
     </dependencies>
 
+<!--    打包配置-->
     <build>
-        <!--        指定编译的模块-->
-        <finalName>order-service</finalName>
+        <finalName>plague-order-service</finalName>
         <plugins>
+            <!-- 指定编译的模块-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <mainClass>com.gover.plague.OrderServiceApplication</mainClass>
                     <fork>true</fork>
                     <layout>ZIP</layout>
                     <includes>
                         <include>
                             <groupId>com.gover.plague</groupId>
-                            <artifactId>order-domain</artifactId>
-                        </include>
-<!--                        <include>-->
-<!--                            <groupId>com.gover.plague</groupId>-->
-<!--                            <artifactId>order-client</artifactId>-->
-<!--                        </include>-->
-                        <include>
-                            <groupId>com.gover.plague</groupId>
-                            <artifactId>order-persistence</artifactId>
+                            <artifactId>plague-order-domain</artifactId>
                         </include>
                         <include>
                             <groupId>com.gover.plague</groupId>
-                            <artifactId>order-service</artifactId>
+                            <artifactId>plague-order-client</artifactId>
                         </include>
                         <include>
                             <groupId>com.gover.plague</groupId>
-                            <artifactId>order-web</artifactId>
+                            <artifactId>plague-order-persistence</artifactId>
+                        </include>
+                        <include>
+                            <groupId>com.gover.plague</groupId>
+                            <artifactId>plague-order-service</artifactId>
+                        </include>
+                        <include>
+                            <groupId>com.gover.plague</groupId>
+                            <artifactId>plague-order-web</artifactId>
                         </include>
                     </includes>
                 </configuration>
+
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>repackage</goal>&lt;!&ndash;可以把依赖的包都打包到生成的Jar包中&ndash;&gt;-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
             </plugin>
         </plugins>
     </build>

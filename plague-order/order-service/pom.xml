@@ -2,7 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <artifactId>plague-order-parent</artifactId>
         <groupId>com.gover.plague</groupId>
@@ -19,5 +18,25 @@
     <properties>
         <java.version>1.8</java.version>
     </properties>
+<!--    2022.04.22打开-->
+    <packaging>jar</packaging>
+
+    <dependencies>
+
+<!--        domain-->
+        <dependency>
+            <groupId>com.gover.plague</groupId>
+            <artifactId>plague-order-domain</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.gover.plague</groupId>
+            <artifactId>plague-order-client</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
+    </dependencies>
 
 </project>
