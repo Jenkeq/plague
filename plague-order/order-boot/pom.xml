@@ -41,7 +41,7 @@
 
 <!--    打包配置-->
     <build>
-        <finalName>plague-order-service</finalName>
+        <finalName>plague-order</finalName>
         <plugins>
             <!-- 指定编译的模块-->
             <plugin>

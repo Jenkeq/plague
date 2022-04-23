@@ -32,6 +32,12 @@
 
     <dependencies>
 
+        <!-- spring cloud alibaba nacos config -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+
         <!-- spring cloud alibaba nacos discovery -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
