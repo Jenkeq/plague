@@ -1,0 +1,14 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.20:8848
+#        username: nacos
+#        password: nacos
+#        namespace: public
+  application:
+    name: plague-order-service
+
+server:
+  port: 9090
+

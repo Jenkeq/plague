@@ -17,7 +17,8 @@
     </properties>
 
     <dependencies>
-<!--        其他子模块-->
+
+        <!--        其他子模块-->
         <dependency>
             <groupId>com.gover.plague</groupId>
             <artifactId>plague-order-web</artifactId>
@@ -35,7 +36,6 @@
             <artifactId>plague-order-service</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-
 
     </dependencies>
 

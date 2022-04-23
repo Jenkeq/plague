@@ -1,6 +1,4 @@
 spring:
-  application:
-    name: plague-order-service
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
@@ -14,9 +12,6 @@ spring:
     maxWait: 60000
     timeBetweenEvictionRunsMillis: 60000
     minEvictableIdleTimeMillis: 300000
-
-server:
-  port: 8090
 
 mybatis-plus:
   mapperLocations: classpath:/mapper/*Mapper.xml
