@@ -1,0 +1,21 @@
+#???? - nacos config
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    username: root
+#    password: qwe123..
+#    url: jdbc:mysql://127.0.0.1:3306/plague_warehouse?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    # ????
+#    initialSize: 5
+#    minIdle: 5
+#    maxActive: 20
+#    maxWait: 60000
+#    timeBetweenEvictionRunsMillis: 60000
+#    minEvictableIdleTimeMillis: 300000
+#
+#mybatis-plus:
+#  mapperLocations: classpath:/mapper/*Mapper.xml
+#  configuration:
+#    map-underscore-to-camel-case: true
+#

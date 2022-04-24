@@ -8,20 +8,20 @@ spring:
         # 命名空间，需先在 nacos 服务器创建，一个环境（比如开发环境dev ）对应一个命名空间
         namespace: 9071eadb-60b5-4ea9-964f-6f2343df6a28
         # 组的名称，可自定义
-        group: PLAGUE_ORDER
+        group: PLAGUE_WAREHOUSE
       config:
         server-addr: 192.168.1.20:8848
-        # 默认扩展名为 properties
+        # 默认扩展名为 properties 改为yaml
         prefix: ${spring.application.name}
         file-extension: yaml
-        group: PLAGUE_ORDER
+        group: PLAGUE_WAREHOUSE
         namespace: 9071eadb-60b5-4ea9-964f-6f2343df6a28
-  # 应用名称
+  # 应用名称(Nacos 的 dataId = 应用名称-开发环境.文件扩展名)
   application:
-    name: plague-order
+    name: plague-warehouse
   # 激活配置文件
   profiles:
     active: dev
 # 端口
 server:
-  port: 9090
+  port: 9091

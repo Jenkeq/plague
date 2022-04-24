@@ -11,5 +11,5 @@ import java.util.Map;
 @Mapper
 public interface OrderPlaceMapper extends BaseMapper<OrderDO> {
 
-    OrderDO findOrder(@Param("orderId") OrderId id);
+    OrderDO findOrder(@Param("req") OrderId id);
 }

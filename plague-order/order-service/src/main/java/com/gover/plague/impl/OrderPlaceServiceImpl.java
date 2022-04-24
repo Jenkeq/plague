@@ -5,18 +5,18 @@ import com.gover.plague.repository.OrderPlaceRepository;
 import com.gover.plague.OrderPlaceService;
 import com.gover.plague.req.OrderPlaceReq;
 import com.gover.plague.value.OrderId;
-import com.gover.plague.vo.OrderPlaceVO;
+import com.gover.plague.resp.OrderPlaceResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 @Service
 public class OrderPlaceServiceImpl implements OrderPlaceService {
 
     @Autowired
     private OrderPlaceRepository orderPlaceRepository;
+
+
 
     // 事件发布器
     // 领域服务
@@ -28,10 +28,10 @@ public class OrderPlaceServiceImpl implements OrderPlaceService {
      * @return
      */
     @Override
-    public ResponseEntity<OrderPlaceVO> findOrder(OrderPlaceReq req) {
+    public ResponseEntity<OrderPlaceResp> findOrder(OrderPlaceReq req) {
         Order order = orderPlaceRepository.findOrder(new OrderId(req.getOrderId()));
 
         // 返回
-        return ResponseEntity.ok(OrderPlaceVO.builder().goodsId(order.getGoodsId().getId()).build());
+        return ResponseEntity.ok(OrderPlaceResp.builder().goodsId(order.getGoodsId().getId()).build());
     }
 }

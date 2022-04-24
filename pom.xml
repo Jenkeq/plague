@@ -2,7 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -23,6 +22,7 @@
 <!--    子模块-->
     <modules>
         <module>plague-order</module>
+        <module>plague-warehouse</module>
     </modules>
 
 <!--    属性-->
@@ -43,7 +43,7 @@
 
         <lombok.version>1.16.18</lombok.version>
 
-        <!-- spring cloud alibaba 2.2.7.RELEASE -->
+        <!-- spring cloud alibaba github上说明的对应版本是2.2.7.RELEASE -->
         <spring-cloud-alibaba-dependencies.version>2.1.2.RELEASE</spring-cloud-alibaba-dependencies.version>
         <!-- nacos -->
         <spring-cloud-starter-alibaba-nacos-discovery.version>2.0.3.RELEASE</spring-cloud-starter-alibaba-nacos-discovery.version>

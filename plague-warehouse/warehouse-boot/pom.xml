@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>plague-warehouse-parent</artifactId>
+        <groupId>com.gover.plague</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>plague-warehouse-boot</artifactId>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+
+        <!--        其他子模块-->
+        <dependency>
+            <groupId>com.gover.plague</groupId>
+            <artifactId>plague-warehouse-web</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.gover.plague</groupId>
+            <artifactId>plague-warehouse-persistence</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.gover.plague</groupId>
+            <artifactId>plague-warehouse-service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+    </dependencies>
+
+    <!--    打包配置-->
+    <build>
+        <finalName>plague-warehouse</finalName>
+        <plugins>
+            <!-- 指定编译的模块-->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.gover.plague.WarehouseServiceApplication</mainClass>
+                    <fork>true</fork>
+                    <layout>ZIP</layout>
+                    <includes>
+                        <include>
+                            <groupId>com.gover.plague</groupId>
+                            <artifactId>plague-warehouse-domain</artifactId>
+                        </include>
+                        <include>
+                            <groupId>com.gover.plague</groupId>
+                            <artifactId>plague-warehouse-client</artifactId>
+                        </include>
+                        <include>
+                            <groupId>com.gover.plague</groupId>
+                            <artifactId>plague-warehouse-persistence</artifactId>
+                        </include>
+                        <include>
+                            <groupId>com.gover.plague</groupId>
+                            <artifactId>plague-warehouse-service</artifactId>
+                        </include>
+                        <include>
+                            <groupId>com.gover.plague</groupId>
+                            <artifactId>plague-warehouse-web</artifactId>
+                        </include>
+                    </includes>
+                </configuration>
+
+                <!--                <executions>-->
+                <!--                    <execution>-->
+                <!--                        <goals>-->
+                <!--                            <goal>repackage</goal>&lt;!&ndash;可以把依赖的包都打包到生成的Jar包中&ndash;&gt;-->
+                <!--                        </goals>-->
+                <!--                    </execution>-->
+                <!--                </executions>-->
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
