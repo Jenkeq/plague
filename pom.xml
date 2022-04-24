@@ -24,6 +24,13 @@
         <module>plague-order</module>
         <module>plague-warehouse</module>
         <module>plague-api</module>
+        <module>plague-cart</module>
+        <module>plague-user</module>
+        <module>plague-book</module>
+        <module>plague-alert</module>
+        <module>plague-risk</module>
+        <module>plague-healthcode</module>
+        <module>plague-common</module>
     </modules>
 
 <!--    属性-->

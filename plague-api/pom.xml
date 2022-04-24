@@ -12,7 +12,7 @@
     <version>1.0.0</version>
     <artifactId>plague-api</artifactId>
 
-    <description>这个模块存放各个模块公共的请求响应类和服务类</description>
+    <description>这个模块存放 - 各个模块公共的请求响应类和服务类。这里的服务只是个影子，真正的服务在各个模块中</description>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
