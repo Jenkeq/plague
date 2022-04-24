@@ -31,6 +31,7 @@
         <module>plague-risk</module>
         <module>plague-healthcode</module>
         <module>plague-common</module>
+        <module>plague-account</module>
     </modules>
 
 <!--    属性-->
