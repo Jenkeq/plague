@@ -21,7 +21,6 @@
         <module>order-domain</module>
         <module>order-persistence</module>
         <module>order-service</module>
-        <module>order-client</module>
     </modules>
 
     <properties>
@@ -31,6 +30,19 @@
 
 <!--    模块公共依赖-->
     <dependencies>
+
+        <!-- api模块 -->
+        <dependency>
+            <groupId>com.gover.plague</groupId>
+            <artifactId>plague-api</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <!-- spring cloud alibaba dubbo -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-dubbo</artifactId>
+        </dependency>
 
         <!-- spring cloud alibaba nacos config -->
         <dependency>
@@ -73,6 +85,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+
     </dependencies>
 
 <!--    构建-->

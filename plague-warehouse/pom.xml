@@ -13,7 +13,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>warehouse-client</module>
         <module>warehouse-domain</module>
         <module>warehouse-persistence</module>
         <module>warehouse-boot</module>
@@ -27,6 +26,19 @@
 
 <!--    模块公共依赖-->
     <dependencies>
+
+        <!-- api模块 -->
+        <dependency>
+            <groupId>com.gover.plague</groupId>
+            <artifactId>plague-api</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <!-- spring cloud alibaba dubbo -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-dubbo</artifactId>
+        </dependency>
 
         <!-- spring cloud alibaba nacos config -->
         <dependency>

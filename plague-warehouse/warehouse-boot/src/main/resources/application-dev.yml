@@ -1,4 +1,4 @@
-#???? - nacos config
+#配置 - nacos config
 #spring:
 #  datasource:
 #    driver-class-name: com.mysql.jdbc.Driver

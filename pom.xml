@@ -23,6 +23,7 @@
     <modules>
         <module>plague-order</module>
         <module>plague-warehouse</module>
+        <module>plague-api</module>
     </modules>
 
 <!--    属性-->
@@ -43,15 +44,23 @@
 
         <lombok.version>1.16.18</lombok.version>
 
-        <!-- spring cloud alibaba github上说明的对应版本是2.2.7.RELEASE -->
+        <!-- spring cloud alibaba (github上说明的对应版本是2.2.7.RELEASE) -->
         <spring-cloud-alibaba-dependencies.version>2.1.2.RELEASE</spring-cloud-alibaba-dependencies.version>
         <!-- nacos -->
         <spring-cloud-starter-alibaba-nacos-discovery.version>2.0.3.RELEASE</spring-cloud-starter-alibaba-nacos-discovery.version>
+        <!-- dubbo -->
+        <spring-cloud-starter-dubbo.version>2.1.0.RELEASE</spring-cloud-starter-dubbo.version>
     </properties>
 
     <!--依赖管理-->
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-dubbo</artifactId>
+                <version>${spring-cloud-starter-dubbo.version}</version>
+            </dependency>
 
             <!-- spring cloud alibaba nacos config -->
             <dependency>

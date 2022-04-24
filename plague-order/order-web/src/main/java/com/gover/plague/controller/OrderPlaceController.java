@@ -1,8 +1,8 @@
 package com.gover.plague.controller;
 
-import com.gover.plague.OrderPlaceService;
-import com.gover.plague.req.OrderPlaceReq;
-import com.gover.plague.resp.OrderPlaceResp;
+import com.gover.plague.order.req.OrderPlaceReq;
+import com.gover.plague.order.resp.OrderPlaceResp;
+import com.gover.plague.order.service.OrderPlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
