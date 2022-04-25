@@ -1,0 +1,40 @@
+[
+    {
+        "resource": "plague-order",
+        "resourceMode": 0,
+        "count": 1,
+        "intervalSec": 1
+    },
+    {
+        "resource": "plague-warehouse",
+        "resourceMode": 1,
+        "pattern": "/api/warehouse/**",
+        "count": 1,
+        "intervalSec": 1
+    }
+]
+
+// resource: 资源名称
+// resourceMode: 资源模式, 其值：0-路由ID模式, 1-自定义API模式
+// limitApp：来源应用
+// grade：阈值类型，0表示线程数，1表示QPS
+// count：限流阈值
+// intervalSec: 统计时间窗口，单位是秒，默认是 1 秒
+// pattern: 自定义API模式下的限流资源路径
+// strategy：流控模式，0表示直接，1表示关联，2表示链路
+// controlBehavior：流控效果，0表示快速失败，1表示Warm Up，2表示排队等待
+// clusterMode：是否集群
+
+
+#          SpringCloud Gateway 附带的限流器（位置与predicates同级）
+#          filters:
+#            - name: RequestRateLimiter
+#              args:
+#                deny-empty-key: true
+#                key-resolver: '#{@IpKeyResolver}'
+#                令牌桶被填充的速率，允许用户每秒执行多少个请求, 而不会丢弃任何请求，相当于QPS
+#                redis-rate-limiter.replenishRate: 100
+#                令牌桶可以容纳的令牌数量，允许用户在一秒钟内执行的最大请求数, 将此值设置为0会阻止所有请求; 可以通过将 burstCapacity 设置为高于 replenishRate 来允许临时突发
+#                redis-rate-limiter.burstCapacity: 200
+#                请求花费多少令牌，这是每个请求从存储桶中获取的令牌数，默认为 1
+#                redis-rate-limiter.requestedTokens: 1

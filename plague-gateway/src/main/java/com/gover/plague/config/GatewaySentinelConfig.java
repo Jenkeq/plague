@@ -74,19 +74,19 @@ public class GatewaySentinelConfig {
 //        );
 
         // 方式二.参数限流(资源限流)
-//        rules.add(new GatewayFlowRule("plague-order")
+//        rules.add(new GatewayFlowRule("plague-warehouse")
 //                .setCount(1)
 //                .setIntervalSec(1)
 //                .setParamItem(new GatewayParamFlowItem()
-                        // 当请求URL路径中带有参数id时，会被匹配进限流
+//                        // 当请求URL路径中带有参数id时，会被匹配进限流
 //                    .setParseStrategy(SentinelGatewayConstants.PARAM_PARSE_STRATEGY_URL_PARAM).setFieldName("id")
 //                )
 //        );
 
         // 方式三.通过自定义api分组进行限流，其这里的资源都在下面进行定义好了对应的匹配路径
         // 这里参数的含义是 IntervalSec秒内可以请求Count次
-        rules.add(new GatewayFlowRule("plague-order").setCount(100).setIntervalSec(1));
-        rules.add(new GatewayFlowRule("plague-warehouse").setCount(100).setIntervalSec(1));
+//        rules.add(new GatewayFlowRule("plague-order").setCount(1).setIntervalSec(1));
+//        rules.add(new GatewayFlowRule("plague-warehouse").setCount(100).setIntervalSec(1));
 
         // 加载规则
         GatewayRuleManager.loadRules(rules);
@@ -100,24 +100,24 @@ public class GatewaySentinelConfig {
         Set<ApiDefinition> definitions = new HashSet<>();
 
         // 订单API组
-        ApiDefinition api_order = new ApiDefinition("plague-order")
-                .setPredicateItems(new HashSet<ApiPredicateItem>() {{
-                    // 路径匹配，也可以使用完整的URL路径
-                    add(new ApiPathPredicateItem().setPattern("/api/order/**").
-                            setMatchStrategy(SentinelGatewayConstants.URL_MATCH_STRATEGY_PREFIX));
-                }});
+//        ApiDefinition api_order = new ApiDefinition("plague-order")
+//                .setPredicateItems(new HashSet<ApiPredicateItem>() {{
+//                    // 路径匹配，也可以使用完整的URL路径
+//                    add(new ApiPathPredicateItem().setPattern("/api/order/**").
+//                            setMatchStrategy(SentinelGatewayConstants.URL_MATCH_STRATEGY_PREFIX));
+//                }});
 
         // 仓库API组
-        ApiDefinition api_warehouse = new ApiDefinition("plague-warehouse")
-                .setPredicateItems(new HashSet<ApiPredicateItem>() {{
-                    // 路径匹配，也可以使用完整的URL路径
-                    add(new ApiPathPredicateItem().setPattern("/api/warehouse/**").
-                            setMatchStrategy(SentinelGatewayConstants.URL_MATCH_STRATEGY_PREFIX));
-                }});
+//        ApiDefinition api_warehouse = new ApiDefinition("plague-warehouse")
+//                .setPredicateItems(new HashSet<ApiPredicateItem>() {{
+//                    // 路径匹配，也可以使用完整的URL路径
+//                    add(new ApiPathPredicateItem().setPattern("/api/warehouse/**").
+//                            setMatchStrategy(SentinelGatewayConstants.URL_MATCH_STRATEGY_PREFIX));
+//                }});
 
         // 添加API分组
-        definitions.add(api_order);
-        definitions.add(api_warehouse);
+//        definitions.add(api_order);
+//        definitions.add(api_warehouse);
 
         // 设置
         GatewayApiDefinitionManager.loadApiDefinitions(definitions);

@@ -71,11 +71,18 @@
         <spring-cloud-starter-alibaba-sentinel.version>2.2.1.RELEASE</spring-cloud-starter-alibaba-sentinel.version>
         <spring-cloud-alibaba-sentinel-gateway.version>2.2.1.RELEASE</spring-cloud-alibaba-sentinel-gateway.version>
         <sentinel-spring-cloud-gateway-adapter.version>1.7.1</sentinel-spring-cloud-gateway-adapter.version>
+        <sentinel-datasource-nacos.version>1.7.1</sentinel-datasource-nacos.version>
     </properties>
 
     <!--依赖管理-->
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>com.alibaba.csp</groupId>
+                <artifactId>sentinel-datasource-nacos</artifactId>
+                <version>${sentinel-datasource-nacos.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>com.alibaba.csp</groupId>
