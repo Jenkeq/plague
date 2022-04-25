@@ -1,3 +1,7 @@
+# 端口
+server:
+  port: 9091
+
 spring:
   cloud:
     nacos:
@@ -22,7 +26,3 @@ spring:
   # 激活配置文件
   profiles:
     active: dev
-
-# 端口
-server:
-  port: 9091

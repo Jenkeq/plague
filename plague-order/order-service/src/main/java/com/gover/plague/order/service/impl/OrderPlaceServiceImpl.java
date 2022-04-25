@@ -22,7 +22,7 @@ public class OrderPlaceServiceImpl implements OrderPlaceService {
     @Autowired
     private OrderPlaceRepository orderPlaceRepository;
 
-    @Reference
+    @Reference(check = false)
     private WareCheckService wareCheckService;
 
     // 事件发布器

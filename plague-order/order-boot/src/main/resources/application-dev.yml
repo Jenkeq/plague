@@ -33,8 +33,13 @@
 #    #其中前缀spring-cloud说明：挂载到 Spring Cloud注册中心
 #    #dubbo服务注册端口，注册中心服务器地址，如果地址没有端口缺省为9090，同一集群内的多个地址用逗号分隔，如：ip:port,ip:port
 #    address: spring-cloud://192.168.1.20:8848?namespace=9071eadb-60b5-4ea9-964f-6f2343df6a28
+#    check: false
 #  cloud:
 #    subscribed-services: plague-warehouse
+#  provider:
+#    loadbalance: roundrobin
 #  consumer:
 #    #关闭注册中心是否启动的相关检查,false表示不检查注册中心是否启动，就不会报错
 #    check: false
+#    timeout: 5000
+#    retries: 3

@@ -20,4 +20,5 @@ public class WarehouseCheckController {
     public WareCheckResp check(@RequestBody WareCheckReq req){
         return warehouseCheckService.queryStock(req);
     }
+
 }

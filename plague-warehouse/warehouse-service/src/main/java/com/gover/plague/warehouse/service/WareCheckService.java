@@ -6,4 +6,5 @@ import com.gover.plague.warehouse.resp.WareCheckResp;
 public interface WareCheckService {
 
     WareCheckResp queryStock(WareCheckReq req);
+
 }

@@ -1,0 +1,56 @@
+spring:
+  cloud:
+    sentinel:
+      transport:
+        port: 8080
+        dashboard: localhost:8080
+    # 使用 Ribbon
+    loadbalancer:
+      ribbon:
+        enabled: true
+    # 网关
+    gateway:
+      # 定位发现
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      # 路由服务
+      routes:
+        # 订单服务
+        - id: plague-order
+          uri: lb://plague-order
+          predicates:
+            - Path= /api/order/**
+#          filters:
+#            - name: RequestRateLimiter
+#              args:
+#                deny-empty-key: true
+#                key-resolver: '#{@IpKeyResolver}'
+#                令牌桶被填充的速率，允许用户每秒执行多少个请求, 而不会丢弃任何请求，相当于QPS
+#                redis-rate-limiter.replenishRate: 100
+#                令牌桶可以容纳的令牌数量，允许用户在一秒钟内执行的最大请求数, 将此值设置为0会阻止所有请求; 可以通过将 burstCapacity 设置为高于 replenishRate 来允许临时突发
+#                redis-rate-limiter.burstCapacity: 200
+#                请求花费多少令牌，这是每个请求从存储桶中获取的令牌数，默认为 1
+#                redis-rate-limiter.requestedTokens: 1
+        # 仓库服务
+        - id: plague-warehouse
+          uri: lb://plague-warehouse
+          predicates:
+            - Path= /api/warehouse/**
+
+      # CORS 跨域请求
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins: "*"
+            allowed-headers: "*"
+            allow-credentials: true
+            allowed-methods:
+              - GET
+              - POST
+              - DELETE
+              - PUT
+              - OPTION
+  main:
+    allow-bean-definition-overriding: true
