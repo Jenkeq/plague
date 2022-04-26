@@ -11,8 +11,8 @@ spring:
             server-addr: 192.168.1.20:8848
             username: nacos
             password: nacos
-            dataId: plague-sentinel-datasource
-            namespace: 9071eadb-60b5-4ea9-964f-6f2343df6a28
+            dataId: plague-warehouse-flow-rule-dev
+            namespace: 5b851b12-c0e1-4845-b64d-48e16980eef1
             groupId: PLAGUE
             data-type: json
             rule-type: flow

@@ -6,7 +6,6 @@ import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiPathPredicateItem;
 import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiPredicateItem;
 import com.alibaba.csp.sentinel.adapter.gateway.common.api.GatewayApiDefinitionManager;
 import com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayFlowRule;
-import com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayParamFlowItem;
 import com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayRuleManager;
 import com.alibaba.csp.sentinel.adapter.gateway.sc.SentinelGatewayFilter;
 import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.BlockRequestHandler;
@@ -30,12 +29,12 @@ import javax.annotation.PostConstruct;
 import java.util.*;
 
 @Configuration
-public class GatewaySentinelConfig {
+public class SentinelGatewayConfig {
 
     private final List<ViewResolver> viewResolvers;
     private final ServerCodecConfigurer serverCodecConfigurer;
 
-    public GatewaySentinelConfig(ObjectProvider<List<ViewResolver>> viewResolversProvider,
+    public SentinelGatewayConfig(ObjectProvider<List<ViewResolver>> viewResolversProvider,
                                  ServerCodecConfigurer serverCodecConfigurer) {
         this.viewResolvers = viewResolversProvider.getIfAvailable(Collections::emptyList);
         this.serverCodecConfigurer = serverCodecConfigurer;
@@ -100,12 +99,12 @@ public class GatewaySentinelConfig {
         Set<ApiDefinition> definitions = new HashSet<>();
 
         // 订单API组
-//        ApiDefinition api_order = new ApiDefinition("plague-order")
-//                .setPredicateItems(new HashSet<ApiPredicateItem>() {{
-//                    // 路径匹配，也可以使用完整的URL路径
-//                    add(new ApiPathPredicateItem().setPattern("/api/order/**").
-//                            setMatchStrategy(SentinelGatewayConstants.URL_MATCH_STRATEGY_PREFIX));
-//                }});
+        ApiDefinition api_order = new ApiDefinition("plague-order")
+                .setPredicateItems(new HashSet<ApiPredicateItem>() {{
+                    // 路径匹配，也可以使用完整的URL路径
+                    add(new ApiPathPredicateItem().setPattern("/api/order/**").
+                            setMatchStrategy(SentinelGatewayConstants.URL_MATCH_STRATEGY_PREFIX));
+                }});
 
         // 仓库API组
 //        ApiDefinition api_warehouse = new ApiDefinition("plague-warehouse")
@@ -124,17 +123,18 @@ public class GatewaySentinelConfig {
     }
 
     /**
-     * 自定义异常提示(熔断)
+     * 自定义限流结果 (熔断)
      */
     @PostConstruct
     public void initBlockHandlers() {
         BlockRequestHandler blockRequestHandler = new BlockRequestHandler() {
             public Mono<ServerResponse> handleRequest(ServerWebExchange serverWebExchange, Throwable throwable) {
                 Map map = new HashMap<>();
-                map.put("code", 1001);
+                map.put("code", 600);
                 map.put("message", "当前服务器繁忙, 请稍后再试!");
-                return ServerResponse.status(HttpStatus.OK).//状态码200
-                        contentType(MediaType.APPLICATION_JSON_UTF8).//application/json;charset=UTF-8
+                // 限流后，可以返回内容也可以重定向
+                return ServerResponse.status(HttpStatus.OK).
+                        contentType(MediaType.APPLICATION_JSON_UTF8).
                         body(BodyInserters.fromObject(map));
             }
         };

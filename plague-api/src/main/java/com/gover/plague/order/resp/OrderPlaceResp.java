@@ -8,5 +8,5 @@ import java.io.Serializable;
 @Data
 @Builder
 public class OrderPlaceResp implements Serializable {
-    int goodsId;
+    int stock;
 }

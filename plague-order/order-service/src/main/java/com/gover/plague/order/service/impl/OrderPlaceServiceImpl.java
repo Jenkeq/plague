@@ -38,12 +38,13 @@ public class OrderPlaceServiceImpl implements OrderPlaceService {
     public ResponseEntity<OrderPlaceResp> findOrder(OrderPlaceReq req) {
         Order order = orderPlaceRepository.findOrder(new OrderId(req.getOrderId()));
 
+        // 查询库存
         WareCheckReq wareCheckReq = new WareCheckReq();
         wareCheckReq.setGoodsId(1);
         WareCheckResp wareCheckResp = wareCheckService.queryStock(wareCheckReq);
         System.out.println(wareCheckResp.getStockLeft());
 
         // 返回
-        return ResponseEntity.ok(OrderPlaceResp.builder().goodsId(order.getGoodsId().getId()).build());
+        return ResponseEntity.ok(OrderPlaceResp.builder().stock(wareCheckResp.getStockLeft()).build());
     }
 }

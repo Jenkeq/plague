@@ -14,6 +14,7 @@
     }
 ]
 
+// 流控
 // resource: 资源名称
 // resourceMode: 资源模式, 其值：0-路由ID模式, 1-自定义API模式
 // limitApp：来源应用

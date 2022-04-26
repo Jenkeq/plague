@@ -72,12 +72,21 @@
         <spring-cloud-alibaba-sentinel-gateway.version>2.2.1.RELEASE</spring-cloud-alibaba-sentinel-gateway.version>
         <sentinel-spring-cloud-gateway-adapter.version>1.7.1</sentinel-spring-cloud-gateway-adapter.version>
         <sentinel-datasource-nacos.version>1.7.1</sentinel-datasource-nacos.version>
+
+        <sentinel-apache-dubbo-adapter.version>1.7.1</sentinel-apache-dubbo-adapter.version>
     </properties>
 
     <!--依赖管理-->
     <dependencyManagement>
         <dependencies>
 
+            <dependency>
+                <groupId>com.alibaba.csp</groupId>
+                <artifactId>sentinel-apache-dubbo-adapter</artifactId>
+                <version>${sentinel-apache-dubbo-adapter.version}</version>
+            </dependency>
+
+            <!-- sentinel nacos -->
             <dependency>
                 <groupId>com.alibaba.csp</groupId>
                 <artifactId>sentinel-datasource-nacos</artifactId>

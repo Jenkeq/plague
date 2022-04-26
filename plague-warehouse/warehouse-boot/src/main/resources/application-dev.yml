@@ -13,12 +13,27 @@
 #    maxWait: 60000
 #    timeBetweenEvictionRunsMillis: 60000
 #    minEvictableIdleTimeMillis: 300000
-#
+#  cloud:
+#    sentinel:
+#      transport:
+#        port: 8080
+#        dashboard: localhost:8080
+#      datasource:
+#        ds1:
+#          nacos:
+#            server-addr: 192.168.1.20:8848
+#            username: nacos
+#            password: nacos
+#            dataId: plague-warehouse-flow-rule-dev
+#            namespace: 5b851b12-c0e1-4845-b64d-48e16980eef1
+#            groupId: PLAGUE
+#            data-type: json
+#            rule-type: flow
 #mybatis-plus:
 #  mapperLocations: classpath:/mapper/*Mapper.xml
 #  configuration:
 #    map-underscore-to-camel-case: true
-#
+
 
 #dubbo:
 #  application:
