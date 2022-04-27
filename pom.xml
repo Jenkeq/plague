@@ -34,6 +34,7 @@
         <module>plague-account</module>
         <module>plague-gateway</module>
         <module>plague-es</module>
+        <module>plague-cache</module>
     </modules>
 
 <!--    属性-->
@@ -74,11 +75,66 @@
         <sentinel-datasource-nacos.version>1.7.1</sentinel-datasource-nacos.version>
 
         <sentinel-apache-dubbo-adapter.version>1.7.1</sentinel-apache-dubbo-adapter.version>
+        <!-- spring security -->
+        <spring-boot-starter-security.version>2.6.3</spring-boot-starter-security.version>
+        <!-- spring cloud security -->
+        <spring-cloud-starter-security.version>2.2.1.RELEASE</spring-cloud-starter-security.version>
+        <spring-cloud-starter-oauth2.version>2.2.1.RELEASE</spring-cloud-starter-oauth2.version>
+
+        <spring-boot-starter-data-redis.version>2.1.2.RELEASE</spring-boot-starter-data-redis.version>
+        <fastjson.version>1.2.33</fastjson.version>
+        <jjwt.version>0.9.0</jjwt.version>
+        <commons-pool2.version>2.4.1</commons-pool2.version>
     </properties>
 
     <!--依赖管理-->
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>${commons-pool2.version}</version>
+            </dependency>
+
+            <!--redis依赖-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${spring-boot-starter-data-redis.version}</version>
+            </dependency>
+
+            <!--fastjson依赖-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+            <!--jwt依赖-->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-oauth2</artifactId>
+                <version>${spring-cloud-starter-oauth2.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-security</artifactId>
+                <version>${spring-cloud-starter-security.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+                <version>${spring-boot-starter-security.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>com.alibaba.csp</groupId>

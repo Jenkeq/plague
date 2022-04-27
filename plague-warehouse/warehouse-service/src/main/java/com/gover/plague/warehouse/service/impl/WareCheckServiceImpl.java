@@ -3,7 +3,6 @@ package com.gover.plague.warehouse.service.impl;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.gover.plague.entity.WareHouse;
 import com.gover.plague.repository.WareCheckRepository;
-import com.gover.plague.value.GoodsId;
 import com.gover.plague.warehouse.req.WareCheckReq;
 import com.gover.plague.warehouse.resp.WareCheckResp;
 import com.gover.plague.warehouse.service.WareCheckService;
@@ -22,17 +21,20 @@ public class WareCheckServiceImpl implements WareCheckService {
 
     // 事件发布器
 
+    /**
+     * 查询库存
+     * @param req
+     * @return
+     */
     @Override
     @SentinelResource(value="WareCheckService.queryStock",
-            blockHandler = "queryStockBlock", blockHandlerClass = WarehouseBlockHandler.class,
-            fallback = "queryStockFallback", fallbackClass = WarehouseFallback.class)
+            blockHandler = "queryStockBlock", blockHandlerClass = WarehouseBlockHandler.class, fallback = "queryStockFallback", fallbackClass = WarehouseFallback.class)
     public WareCheckResp queryStock(WareCheckReq req) {
-        System.out.println("进入warehouse模块的的WareCheckServiceImpl.queryStock");
-        WareHouse wareHouse = wareCheckRepository.queryStock(new GoodsId(req.getGoodsId()));
+        System.out.println("进入warehouse模块的的WareCheckServiceImpl.queryStock方法");
+        WareHouse wareHouse = wareCheckRepository.queryStock(req.getGoodsId());
 
         // 返回
-        return new WareCheckResp(wareHouse.getStock().getStock());
+        return new WareCheckResp(wareHouse.getStock());
     }
-
 
 }

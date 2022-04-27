@@ -28,6 +28,18 @@
     <!--    模块公共依赖-->
     <dependencies>
 
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-security</artifactId>-->
+<!--        </dependency>-->
+
+        <!-- common 模块 -->
+        <dependency>
+            <groupId>com.gover.plague</groupId>
+            <artifactId>plague-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
         <!-- api模块 -->
         <dependency>
             <groupId>com.gover.plague</groupId>

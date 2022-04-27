@@ -1,7 +1,6 @@
 package com.gover.plague.mapper;
 
 import com.gover.plague.trans.dto.WareHouseDO;
-import com.gover.plague.value.GoodsId;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,5 +12,5 @@ public interface WareCheckMapper {
      * @param goodsId
      * @return
      */
-    WareHouseDO queryStock(@Param("req") GoodsId goodsId);
+    WareHouseDO queryStock(@Param("req") int goodsId);
 }

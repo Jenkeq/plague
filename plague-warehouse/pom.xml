@@ -17,6 +17,7 @@
         <module>warehouse-persistence</module>
         <module>warehouse-boot</module>
         <module>warehouse-web</module>
+        <module>warehouse-service</module>
     </modules>
 
     <properties>

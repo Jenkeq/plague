@@ -1,11 +1,12 @@
 package com.gover.plague.entity;
 
-import com.gover.plague.value.GoodsId;
-import com.gover.plague.value.OrderId;
+import com.gover.plague.value.OrderItem;
 import lombok.Data;
 
 @Data
 public class Order {
-    OrderId id;
-    GoodsId goodsId;
+
+    int id;
+
+    OrderItem orItem;
 }

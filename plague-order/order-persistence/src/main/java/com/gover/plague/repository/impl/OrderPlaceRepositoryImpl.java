@@ -5,7 +5,6 @@ import com.gover.plague.repository.OrderPlaceRepository;
 import com.gover.plague.mapper.OrderPlaceMapper;
 import com.gover.plague.trans.builder.OrderBuilder;
 import com.gover.plague.trans.dto.OrderDO;
-import com.gover.plague.value.OrderId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +18,7 @@ public class OrderPlaceRepositoryImpl implements OrderPlaceRepository {
     private OrderBuilder orderBuilder;
 
     @Override
-    public Order findOrder(OrderId orderId) {
+    public Order findOrder(int orderId) {
         OrderDO orderDO = orderPlaceMapper.findOrder(orderId);
         return orderBuilder.toOrder(orderDO);
     }

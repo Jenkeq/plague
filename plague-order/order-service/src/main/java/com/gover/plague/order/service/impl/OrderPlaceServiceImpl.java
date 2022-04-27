@@ -5,7 +5,6 @@ import com.gover.plague.order.req.OrderPlaceReq;
 import com.gover.plague.order.resp.OrderPlaceResp;
 import com.gover.plague.order.service.OrderPlaceService;
 import com.gover.plague.repository.OrderPlaceRepository;
-import com.gover.plague.value.OrderId;
 import com.gover.plague.warehouse.req.WareCheckReq;
 import com.gover.plague.warehouse.resp.WareCheckResp;
 import com.gover.plague.warehouse.service.WareCheckService;
@@ -36,9 +35,9 @@ public class OrderPlaceServiceImpl implements OrderPlaceService {
      */
     @Override
     public ResponseEntity<OrderPlaceResp> findOrder(OrderPlaceReq req) {
-        Order order = orderPlaceRepository.findOrder(new OrderId(req.getOrderId()));
+        Order order = orderPlaceRepository.findOrder(req.getOrderId());
 
-        // 查询库存
+        // 查询库存（调试dubbo调用）
         WareCheckReq wareCheckReq = new WareCheckReq();
         wareCheckReq.setGoodsId(1);
         WareCheckResp wareCheckResp = wareCheckService.queryStock(wareCheckReq);

@@ -2,9 +2,14 @@ package com.gover.plague.trans.builder;
 
 import com.gover.plague.entity.Order;
 import com.gover.plague.trans.dto.OrderDO;
-import net.sf.jsqlparser.expression.OrderByClause;
+import org.springframework.stereotype.Component;
 
-public interface OrderBuilder {
+@Component
+public class OrderBuilder {
 
-    Order toOrder(OrderDO orderDO);
+    public Order toOrder(OrderDO orderDO) {
+        Order order = new Order();
+        order.setId(orderDO.getOrderId());
+        return order;
+    }
 }

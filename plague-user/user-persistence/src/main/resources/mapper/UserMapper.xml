@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gover.plague.mapper.UserMapper">
+
+    <select id="getUserByName" resultType="com.gover.plague.trans.dto.UserDO">
+        select t.username as userName,t.id as id from plague_user.user t where t.username = #{req}
+    </select>
+
+</mapper>

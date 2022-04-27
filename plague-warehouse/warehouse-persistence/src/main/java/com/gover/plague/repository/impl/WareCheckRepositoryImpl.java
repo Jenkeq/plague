@@ -5,7 +5,6 @@ import com.gover.plague.mapper.WareCheckMapper;
 import com.gover.plague.repository.WareCheckRepository;
 import com.gover.plague.trans.builder.WarehouseBuilder;
 import com.gover.plague.trans.dto.WareHouseDO;
-import com.gover.plague.value.GoodsId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +18,7 @@ public class WareCheckRepositoryImpl implements WareCheckRepository {
     private WarehouseBuilder warehouseBuilder;
 
     @Override
-    public WareHouse queryStock(GoodsId goodsId) {
+    public WareHouse queryStock(int goodsId) {
         WareHouseDO wareHouseDO = wareCheckMapper.queryStock(goodsId);
         return warehouseBuilder.toWareHouse(wareHouseDO);
     }

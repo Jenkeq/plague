@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class OrderDO {
 
-    int id;
+    int orderId;
     int goodsId;
 }
