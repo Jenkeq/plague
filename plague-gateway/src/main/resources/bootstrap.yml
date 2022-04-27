@@ -4,16 +4,20 @@ server:
 
 spring:
   cloud:
-    # nacos
     nacos:
       discovery:
         server-addr: 192.168.1.20:8848
         username: nacos
         password: nacos
-        # 命名空间
         namespace: 9071eadb-60b5-4ea9-964f-6f2343df6a28
-        # 组
         group: PLAGUE
+      config:
+        server-addr: 192.168.1.20:8848
+        # 默认扩展名为 properties
+        prefix: ${spring.application.name}
+        file-extension: yaml
+        group: PLAGUE
+        namespace: 9071eadb-60b5-4ea9-964f-6f2343df6a28
   # 配置文件
   profiles:
     active: dev

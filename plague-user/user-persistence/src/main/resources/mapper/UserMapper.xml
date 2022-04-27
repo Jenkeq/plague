@@ -6,7 +6,7 @@
 <mapper namespace="com.gover.plague.mapper.UserMapper">
 
     <select id="getUserByName" resultType="com.gover.plague.trans.dto.UserDO">
-        select t.username as userName,t.id as id from plague_user.user t where t.username = #{req}
+        select t.username as userName,t.id as id ,t.password from plague_user.user t where t.username = #{req}
     </select>
 
 </mapper>

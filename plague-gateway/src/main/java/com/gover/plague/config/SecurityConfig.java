@@ -1,49 +1,55 @@
 package com.gover.plague.config;
 
-import com.gover.plague.config.auth.CustomUserDetailService;
+//import com.gover.plague.config.auth.CustomUserDetailService;
+import com.gover.plague.filter.TokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.core.userdetails.MapReactiveUserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.server.SecurityWebFilterChain;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebFluxSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
-    @Autowired
-    private CustomUserDetailService customUserDetailService;
+//    @Autowired
+//    private CustomUserDetailService customUserDetailService;
 
-    /**
-     * 对某些路径进行验证，通过http对象配置具体的认证规则、路由权限规则
-     * @param http
-     * @throws Exception
-     */
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+//    @Autowired
+//    TokenFilter tokenFilter;
 
+    @Bean
+    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+        http
+                .formLogin()
+                .and()
+                .csrf().disable()
+                .httpBasic(withDefaults());
+        return http.build();
     }
 
     /**
-     * 如何验证用户
-     * @param auth
-     * @throws Exception
-     */
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-    }
-
-    /**
-     * 注入 PasswordEncoder
+     * 使用 BCryptPasswordEncoder
      * @return
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    /**
+     * Token 过滤器
+     * @return
+     */
+    @Bean
+    public TokenFilter tokenFilter(){
+        return new TokenFilter();
     }
 }
