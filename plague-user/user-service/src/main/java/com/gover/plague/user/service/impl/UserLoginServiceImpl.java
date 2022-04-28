@@ -28,18 +28,11 @@ public class UserLoginServiceImpl implements UserLoginService {
 
     // 领域服务
     // 事件发布
-//
-//    public static void main(String[] args) {
-//        String gensalt = BCrypt.gensalt();
-//        System.out.println(BCrypt.hashpw("123", gensalt));
-//
-//    }
 
     @Override
     public UserLoginResp queryUserByName(UserLoginReq req) {
         User user = userRepository.getUserByName(req.getUserName());
-
-        return new UserLoginResp(user.getId(), user.getUserName(), null,null);
+        return new UserLoginResp(user.getId(), user.getUserName(), user.getPassword(), user.getStatus(), null, null);
     }
 
     @Override
@@ -50,6 +43,7 @@ public class UserLoginServiceImpl implements UserLoginService {
         // 校对密码, 数据库中存储的是 BCrypt 加密，盐值随机即可
         boolean checkResult = BCrypt.checkpw(userReq.getPassword(), user.getPassword());
 
+        // 校对通过，签发token
         if (checkResult){
             long expireTime = 3600 * 1000;
             String token = JWTUtil.createJWT(UUID.randomUUID().toString(), user.getUserName(), expireTime);

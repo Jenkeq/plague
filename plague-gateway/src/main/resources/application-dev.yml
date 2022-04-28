@@ -22,7 +22,6 @@ spring:
         enabled: true
     # 网关
     gateway:
-      # 定位发现
       discovery:
         locator:
           enabled: true
@@ -44,23 +43,40 @@ spring:
           uri: lb://plague-user
           predicates:
             - Path= /api/user/**
-
+        # 认证模块路由
+        - id: plague-auth
+          uri: lb://plague-auth
+          predicates:
+            - Path= /auth/**
+          filters:
+            - StripPrefix=1
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: 'http://127.0.0.1:9095/rsa/publicKey' #配置RSA的公钥访问地址
       # CORS 跨域请求
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allowed-origins: "*"
-            allowed-headers: "*"
-            allow-credentials: true
-            allowed-methods:
-              - GET
-              - POST
-              - DELETE
-              - PUT
-              - OPTION
+#      globalcors:
+#        cors-configurations:
+#          '[/**]':
+#            allowed-origins: "*"
+#            allowed-headers: "*"
+#            allow-credentials: true
+#            allowed-methods:
+#              - GET
+#              - POST
+#              - DELETE
+#              - PUT
+#              - OPTION
   main:
     allow-bean-definition-overriding: true
 
+secure:
+  ignore:
+    urls: #配置白名单路径
+      - "/actuator/**"
+      - "/auth/oauth/token"
+      - "/api/user/fuck/hello"
 
 dubbo:
   application:
@@ -78,7 +94,7 @@ dubbo:
     address: spring-cloud://192.168.1.20:8848?namespace=9071eadb-60b5-4ea9-964f-6f2343df6a28
     check: false
   cloud:
-    subscribed-services: plague-user
+    subscribed-services: plague-cache
   provider:
     loadbalance: roundrobin
   consumer:

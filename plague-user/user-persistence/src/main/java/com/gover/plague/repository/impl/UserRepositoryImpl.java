@@ -6,6 +6,7 @@ import com.gover.plague.repository.UserRepository;
 import com.gover.plague.trans.builder.UserBuilder;
 import com.gover.plague.trans.dto.UserDO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 @Repository

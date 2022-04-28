@@ -25,7 +25,7 @@ public class JWTUtil {
         return key;
     }
 
-    public static String createJWT(String id, String subject, long ttlMillis){
+    public static String createJWT(String id, String body, long ttlMillis){
         //指定签名的时候使用的签名算法，也就是JWT中header那部分
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         //生成JWT的时间
@@ -36,13 +36,13 @@ public class JWTUtil {
         //设置JWT的body
         JwtBuilder builder = Jwts.builder()
                 //如果有私有声明，一定要先设置这个自己创建的私有的声明，这个是给builder的claim赋值，一旦写在标准的声明赋值之后，就是覆盖了那些标准的声明的
-//                .setClaims(claims)
+                // .setClaims(claims)
                 //设置jti(JWT ID)：是JWT的唯一标识，根据业务需要，这个可以设置为一个不重复的值，主要用来作为一次性token,从而回避重放攻击
                 .setId(id)
                 //JWT的签发时间
                 .setIssuedAt(now)
                 //sub(Subject)：代表这个JWT的主体，即它的所有人，这个是一个json格式的字符串，可以存放什么userid，roldid之类的，作为什么用户的唯一标志。
-                .setSubject(subject)
+                .setSubject(body)
                 //设置签名使用的签名算法和签名使用的秘钥
                 .signWith(signatureAlgorithm, key);
         if (ttlMillis >= 0) {

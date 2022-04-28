@@ -10,7 +10,6 @@ public class UserBuilder {
 
     public User toUser(UserDO userDO){
         User user = new User();
-
         BeanUtils.copyProperties(userDO, user);
         return user;
     }

@@ -99,12 +99,12 @@ public class SentinelGatewayConfig {
         Set<ApiDefinition> definitions = new HashSet<>();
 
         // 订单API组
-        ApiDefinition api_order = new ApiDefinition("plague-order")
-                .setPredicateItems(new HashSet<ApiPredicateItem>() {{
-                    // 路径匹配，也可以使用完整的URL路径
-                    add(new ApiPathPredicateItem().setPattern("/api/order/**").
-                            setMatchStrategy(SentinelGatewayConstants.URL_MATCH_STRATEGY_PREFIX));
-                }});
+//        ApiDefinition api_order = new ApiDefinition("plague-order")
+//                .setPredicateItems(new HashSet<ApiPredicateItem>() {{
+//                    // 路径匹配，也可以使用完整的URL路径
+//                    add(new ApiPathPredicateItem().setPattern("/api/order/**").
+//                            setMatchStrategy(SentinelGatewayConstants.URL_MATCH_STRATEGY_PREFIX));
+//                }});
 
         // 仓库API组
 //        ApiDefinition api_warehouse = new ApiDefinition("plague-warehouse")

@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 public class User {
 
-    int id;
+    String id;
     String userName;
     String nickName;
     String password;
@@ -20,11 +20,6 @@ public class User {
     CurAddress curAddress;
     List<ShipAdress> shipAdds;
     String status;
+    List<String> roles;
 
-    /**
-     * 登录
-     */
-    public void login(){
-
-    }
 }

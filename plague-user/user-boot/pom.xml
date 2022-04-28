@@ -41,6 +41,23 @@
 
     <!--    打包配置-->
     <build>
+<!--        <resources>-->
+<!--            <resource>-->
+<!--                <directory>src/main/resources</directory>-->
+<!--                <filtering>true</filtering>-->
+<!--                <excludes>-->
+<!--                    <exclude>**/*.jks</exclude>-->
+<!--                </excludes>-->
+<!--            </resource>-->
+<!--            <resource>-->
+<!--                <directory>src/main/resources</directory>-->
+<!--                <filtering>false</filtering>-->
+<!--                <includes>-->
+<!--                    <include>**/*.jks</include>-->
+<!--                </includes>-->
+<!--            </resource>-->
+<!--        </resources>-->
+
         <finalName>plague-user</finalName>
         <plugins>
             <!-- 指定编译的模块-->
@@ -84,6 +101,7 @@
                 <!--                </executions>-->
             </plugin>
         </plugins>
+
     </build>
 
 </project>
