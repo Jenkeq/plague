@@ -1,0 +1,28 @@
+# 端口
+server:
+  port: 9096
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.20:8848
+        username: nacos
+        password: nacos
+        # 命名空间，需先在 nacos 服务器创建，一个环境（比如开发环境dev ）对应一个命名空间
+        namespace: 9071eadb-60b5-4ea9-964f-6f2343df6a28
+        # 组的名称，可自定义
+        group: PLAGUE
+      config:
+        server-addr: 192.168.1.20:8848
+        # 默认扩展名为 properties
+        prefix: ${spring.application.name}
+        file-extension: yaml
+        group: PLAGUE
+        namespace: 9071eadb-60b5-4ea9-964f-6f2343df6a28
+  # 应用名称
+  application:
+    name: plague-es
+  # 激活配置文件
+  profiles:
+    active: dev
