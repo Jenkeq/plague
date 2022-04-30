@@ -1,6 +1,8 @@
 package com.gover.plague.common;
 
-public class ResultVO<T> {
+import java.io.Serializable;
+
+public class ResultVO<T> implements Serializable {
     private long code;
     private String message;
     private T data;
@@ -12,6 +14,19 @@ public class ResultVO<T> {
         this.code = code;
         this.message = message;
         this.data = data;
+    }
+
+    public ResultVO(long code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    /**
+     * 成功返回结果
+     *
+     */
+    public static <T> ResultVO<T> success() {
+        return new ResultVO<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage());
     }
 
     /**

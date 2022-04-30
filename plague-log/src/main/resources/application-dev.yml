@@ -1,0 +1,19 @@
+dubbo:
+  application:
+    name: plague-log
+    id: plague-log
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: spring-cloud://192.168.1.22:8848?namespace=97e8410e-fe73-44d3-a11a-f7801b8d8b7b
+    check: false
+  cloud:
+    subscribed-services: plague-mq
+  provider:
+    loadbalance: roundrobin
+  consumer:
+    check: false
+    timeout: 5000
+    retries: 3
+

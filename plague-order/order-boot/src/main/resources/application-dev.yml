@@ -1,4 +1,4 @@
-#配置内容 - nacos config
+##配置内容 - nacos config
 #spring:
 #  datasource:
 #    driver-class-name: com.mysql.jdbc.Driver
@@ -18,7 +18,7 @@
 #  mapperLocations: classpath:/mapper/*Mapper.xml
 #  configuration:
 #    map-underscore-to-camel-case: true
-
+#
 #dubbo:
 #  application:
 #    name: plague-order
@@ -32,7 +32,7 @@
 #  registry:
 #    #其中前缀spring-cloud说明：挂载到 Spring Cloud注册中心
 #    #dubbo服务注册端口，注册中心服务器地址，如果地址没有端口缺省为9090，同一集群内的多个地址用逗号分隔，如：ip:port,ip:port
-#    address: spring-cloud://192.168.1.20:8848?namespace=9071eadb-60b5-4ea9-964f-6f2343df6a28
+#    address: spring-cloud://192.168.1.22:8848?namespace=97e8410e-fe73-44d3-a11a-f7801b8d8b7b
 #    check: false
 #  cloud:
 #    subscribed-services: plague-warehouse

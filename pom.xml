@@ -97,11 +97,20 @@
         <spring-boot-starter-data-redis.version>2.1.2.RELEASE</spring-boot-starter-data-redis.version>
 <!--    spring data elasticsearch-->
         <spring-boot-starter-data-elasticsearch.version>2.3.12.RELEASE</spring-boot-starter-data-elasticsearch.version>
+
+        <spring-cloud-starter-stream-kafka.version>3.1.0</spring-cloud-starter-stream-kafka.version>
     </properties>
 
     <!--依赖管理-->
     <dependencyManagement>
         <dependencies>
+
+            <!-- springcloud stream kafka -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-stream-kafka</artifactId>
+                <version>${spring-cloud-starter-stream-kafka.version}</version>
+            </dependency>
 
 <!--            spring data elasticsearch-->
             <dependency>

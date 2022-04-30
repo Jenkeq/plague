@@ -1,4 +1,4 @@
-#配置 - nacos config
+##配置 - nacos config
 #spring:
 #  datasource:
 #    driver-class-name: com.mysql.jdbc.Driver
@@ -6,7 +6,6 @@
 #    password: qwe123..
 #    url: jdbc:mysql://127.0.0.1:3306/plague_warehouse?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
 #    type: com.alibaba.druid.pool.DruidDataSource
-#    # ????
 #    initialSize: 5
 #    minIdle: 5
 #    maxActive: 20
@@ -21,20 +20,29 @@
 #      datasource:
 #        ds1:
 #          nacos:
-#            server-addr: 192.168.1.20:8848
+#            server-addr: 192.168.1.22:8848
 #            username: nacos
 #            password: nacos
 #            dataId: plague-warehouse-flow-rule-dev
-#            namespace: 5b851b12-c0e1-4845-b64d-48e16980eef1
+#            namespace: fb0b9a46-adf0-4a0e-85bb-c63eab20f66c
 #            groupId: PLAGUE
 #            data-type: json
 #            rule-type: flow
+#  #       ds2:
+#  #         nacos:
+#  #           server-addr: 192.168.1.20:8848
+#  #           username: nacos
+#  #           password: nacos
+#  #           dataId: plague-warehouse-degrade-rule-dev
+#  #           namespace: 5b851b12-c0e1-4845-b64d-48e16980eef1
+#  #           groupId: PLAGUE
+#  #           data-type: json
+#  #           rule-type: degrade
 #mybatis-plus:
 #  mapperLocations: classpath:/mapper/*Mapper.xml
 #  configuration:
 #    map-underscore-to-camel-case: true
-
-
+#
 #dubbo:
 #  application:
 #    name: plague-warehouse
@@ -47,7 +55,7 @@
 #  registry:
 #    #dubbo服务注册端口，注册中心服务器地址，如果地址没有端口缺省为9090，同一集群内的多个地址用逗号分隔，如：ip:port,ip:port
 #    #其中前缀spring-cloud说明：挂载到 Spring Cloud注册中心
-#    address: spring-cloud://192.168.1.20:8848?namespcae=9071eadb-60b5-4ea9-964f-6f2343df6a28
+#    address: spring-cloud://192.168.1.22:8848?namespcae=97e8410e-fe73-44d3-a11a-f7801b8d8b7b
 #    check: false
 #  cloud:
 #    subscribed-services:

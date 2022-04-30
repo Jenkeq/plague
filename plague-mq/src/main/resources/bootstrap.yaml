@@ -1,6 +1,6 @@
 # 端口
 server:
-  port: 9093
+  port: 9097
 
 spring:
   cloud:
@@ -22,7 +22,7 @@ spring:
         namespace: 97e8410e-fe73-44d3-a11a-f7801b8d8b7b
   # 应用名称
   application:
-    name: plague-user
+    name: plague-mq
   # 激活配置文件
   profiles:
     active: dev

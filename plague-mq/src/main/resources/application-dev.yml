@@ -1,0 +1,30 @@
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+          auto-create-topics: true
+      default-binder: kafka
+      bindings:
+        order_log_output:
+          destination: plague_order_log
+          contentType: application/json
+dubbo:
+  application:
+    name: plague-mq
+    id: plague-mq
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: spring-cloud://192.168.1.22:8848?namespace=97e8410e-fe73-44d3-a11a-f7801b8d8b7b
+    check: false
+  cloud:
+    subscribed-services:
+  provider:
+    loadbalance: roundrobin
+  consumer:
+    check: false
+    timeout: 5000
+    retries: 3
