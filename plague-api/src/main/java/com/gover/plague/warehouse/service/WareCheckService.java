@@ -5,7 +5,7 @@ import com.gover.plague.warehouse.resp.WareCheckResp;
 
 public interface WareCheckService {
     /**
-     * 根据订单ID查找订单
+     * 查询库存
      * @param req
      * @return
      */

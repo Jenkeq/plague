@@ -1,5 +1,6 @@
 package com.gover.plague.controller;
 
+import com.gover.plague.common.ResultVO;
 import com.gover.plague.order.req.OrderPlaceReq;
 import com.gover.plague.order.resp.OrderPlaceResp;
 import com.gover.plague.order.service.OrderPlaceService;
@@ -18,7 +19,7 @@ public class OrderPlaceController {
     private OrderPlaceService orderPlaceService;
 
     @PostMapping("/v1/find")
-    public ResponseEntity<OrderPlaceResp> findOrder(@RequestBody OrderPlaceReq req){
+    public ResultVO<OrderPlaceResp> findOrder(@RequestBody OrderPlaceReq req){
         return orderPlaceService.findOrder(req);
     }
 }

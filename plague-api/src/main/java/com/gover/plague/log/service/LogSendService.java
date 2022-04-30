@@ -1,9 +1,9 @@
 package com.gover.plague.log.service;
 
 import com.gover.plague.common.ResultVO;
-import com.gover.plague.mq.req.OrderLogReq;
+import com.gover.plague.log.req.ApiAccessLogs;
 
 public interface LogSendService {
 
-    ResultVO sendOrderLog(OrderLogReq req);
+    ResultVO sendApiAccessLog(ApiAccessLogs req);
 }

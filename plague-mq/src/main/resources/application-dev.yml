@@ -7,9 +7,10 @@ spring:
           auto-create-topics: true
       default-binder: kafka
       bindings:
-        order_log_output:
-          destination: plague_order_log
+        api_access_log_output:
+          destination: plague_api_access_log
           contentType: application/json
+
 dubbo:
   application:
     name: plague-mq

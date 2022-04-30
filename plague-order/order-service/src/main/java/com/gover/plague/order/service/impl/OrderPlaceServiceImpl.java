@@ -1,6 +1,8 @@
 package com.gover.plague.order.service.impl;
 
+import com.gover.plague.common.ResultVO;
 import com.gover.plague.entity.Order;
+import com.gover.plague.log.annotation.ApiAccessLog;
 import com.gover.plague.order.req.OrderPlaceReq;
 import com.gover.plague.order.resp.OrderPlaceResp;
 import com.gover.plague.order.service.OrderPlaceService;
@@ -34,16 +36,19 @@ public class OrderPlaceServiceImpl implements OrderPlaceService {
      * @return
      */
     @Override
-    public ResponseEntity<OrderPlaceResp> findOrder(OrderPlaceReq req) {
+    @ApiAccessLog(desc = "根据订单ID")
+    public ResultVO<OrderPlaceResp> findOrder(OrderPlaceReq req) {
         Order order = orderPlaceRepository.findOrder(req.getOrderId());
 
-        // 查询库存（调试dubbo调用）
+        // 查询库存
         WareCheckReq wareCheckReq = new WareCheckReq();
         wareCheckReq.setGoodsId(1);
         WareCheckResp wareCheckResp = wareCheckService.queryStock(wareCheckReq);
         System.out.println(wareCheckResp.getStockLeft());
 
         // 返回
-        return ResponseEntity.ok(OrderPlaceResp.builder().stock(wareCheckResp.getStockLeft()).build());
+        return ResultVO.success(OrderPlaceResp.builder()
+                .stock(wareCheckResp.getStockLeft())
+                .build());
     }
 }

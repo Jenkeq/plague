@@ -1,8 +1,8 @@
 package com.gover.plague.controller;
 
 import com.gover.plague.common.ResultVO;
+import com.gover.plague.log.req.ApiAccessLogs;
 import com.gover.plague.log.service.LogSendService;
-import com.gover.plague.mq.req.OrderLogReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +15,8 @@ public class LogSendController {
     @Autowired
     private LogSendService logSendService;
 
-    @RequestMapping("/order/place")
-    public ResultVO orderSendLog(@RequestBody OrderLogReq req){
-        return logSendService.sendOrderLog(req);
+    @RequestMapping("/api/access")
+    public ResultVO orderSendLog(@RequestBody ApiAccessLogs req){
+        return logSendService.sendApiAccessLog(req);
     }
 }

@@ -1,8 +1,8 @@
 package com.gover.plague.mq.service.impl;
 
-import com.gover.plague.channel.OrderLogChannel;
+import com.gover.plague.channel.ApiAccessLogChannel;
 import com.gover.plague.common.ResultVO;
-import com.gover.plague.mq.req.OrderLogReq;
+import com.gover.plague.log.req.ApiAccessLogs;
 import com.gover.plague.mq.service.LogSendMqService;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,26 +17,26 @@ import org.springframework.util.MimeTypeUtils;
 public class LogSendMqServiceImpl implements LogSendMqService {
 
 //    方式一
-//    @Resource(name = OrderLogChannel.ORDER_LOG_OUTPUT)
+//    @Resource(name = ApiAccessLogChannel.ORDER_LOG_OUTPUT)
 //    private MessageChannel messageChannel;
 
     @Autowired
-    private OrderLogChannel orderLogChannel;
+    private ApiAccessLogChannel apiAccessLogChannel;
 
     /**
-     * 发送订单日志
+     * 发送API访问日志
      * @param req
      * @return
      */
     @Override
-    public ResultVO sendOrderLog(OrderLogReq req) {
-        MessageChannel messageChannel = orderLogChannel.msgChannel();
+    public ResultVO sendApiAccessLog(ApiAccessLogs req) {
+        MessageChannel messageChannel = apiAccessLogChannel.msgChannel();
         boolean send = messageChannel.send(MessageBuilder
                 .withPayload(req)
                 .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
                 .build());
 
-//        方式一
+//        或
 //        boolean isSendSuccess = orderLogChannel.send(MessageBuilder.withPayload(req).build());
         return ResultVO.success(send);
     }
