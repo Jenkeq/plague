@@ -32,9 +32,6 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
         List<String> authorities = Convert.toList(String.class, obj);
         authorities = authorities.stream().map(e -> e = AuthConstant.AUTHORITY_PREFIX + e).collect(Collectors.toList());
 
-        // obj=ADMIN
-        System.out.println("AuthorizationManager.check "+Arrays.toString(authorities.toArray()));
-
         //认证通过且角色匹配的用户可访问当前路径
         return mono
                 .filter(Authentication::isAuthenticated)
