@@ -40,6 +40,7 @@
         <module>plague-log</module>
         <module>plague-mq</module>
         <module>plague-job</module>
+        <module>plague-slenth</module>
     </modules>
 
 <!--    属性-->
@@ -97,13 +98,21 @@
         <spring-boot-starter-data-redis.version>2.1.2.RELEASE</spring-boot-starter-data-redis.version>
 <!--    spring data elasticsearch-->
         <spring-boot-starter-data-elasticsearch.version>2.3.12.RELEASE</spring-boot-starter-data-elasticsearch.version>
-
+<!--        spring cloud stream-->
         <spring-cloud-starter-stream-kafka.version>3.1.0</spring-cloud-starter-stream-kafka.version>
+<!--        spring cloud zipkin-->
+        <spring-cloud-starter-zipkin.version>2.2.1.RELEASE</spring-cloud-starter-zipkin.version>
     </properties>
 
     <!--依赖管理-->
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-zipkin</artifactId>
+                <version>${spring-cloud-starter-zipkin.version}</version>
+            </dependency>
 
             <!-- springcloud stream kafka -->
             <dependency>

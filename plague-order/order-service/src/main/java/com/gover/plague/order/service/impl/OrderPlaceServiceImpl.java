@@ -36,7 +36,7 @@ public class OrderPlaceServiceImpl implements OrderPlaceService {
      * @return
      */
     @Override
-    @ApiAccessLog(desc = "根据订单ID")
+    @ApiAccessLog(desc = "根据订单ID查找订单")
     public ResultVO<OrderPlaceResp> findOrder(OrderPlaceReq req) {
         Order order = orderPlaceRepository.findOrder(req.getOrderId());
 

@@ -1,6 +1,6 @@
 #端口
 server:
-  port: 9092
+  port: 9099
 
 spring:
   cloud:

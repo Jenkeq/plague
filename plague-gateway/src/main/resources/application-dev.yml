@@ -76,7 +76,6 @@ secure:
     urls: #配置白名单路径
       - "/actuator/**"
       - "/auth/oauth/token"
-      - "/api/user/fuck/hello"
 
 dubbo:
   application:
