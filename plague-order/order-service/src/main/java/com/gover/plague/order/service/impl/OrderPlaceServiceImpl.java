@@ -13,7 +13,6 @@ import com.gover.plague.warehouse.service.WareCheckService;
 import org.apache.dubbo.config.annotation.Reference;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Service
@@ -37,14 +36,14 @@ public class OrderPlaceServiceImpl implements OrderPlaceService {
      */
     @Override
     @ApiAccessLog(desc = "根据订单ID查找订单")
-    public ResultVO<OrderPlaceResp> findOrder(OrderPlaceReq req) {
-        Order order = orderPlaceRepository.findOrder(req.getOrderId());
-
+    public ResultVO<OrderPlaceResp> placeOrder(OrderPlaceReq req) {
         // 查询库存
         WareCheckReq wareCheckReq = new WareCheckReq();
         wareCheckReq.setGoodsId(1);
         WareCheckResp wareCheckResp = wareCheckService.queryStock(wareCheckReq);
         System.out.println(wareCheckResp.getStockLeft());
+
+        Order order = orderPlaceRepository.placeOrder(req.getOrderId());
 
         // 返回
         return ResultVO.success(OrderPlaceResp.builder()

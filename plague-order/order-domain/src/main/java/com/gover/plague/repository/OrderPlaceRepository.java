@@ -4,5 +4,5 @@ import com.gover.plague.entity.Order;
 
 public interface OrderPlaceRepository {
 
-    Order findOrder(int orderId);
+    Order placeOrder(int orderId);
 }

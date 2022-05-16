@@ -19,7 +19,7 @@ public class WareCheckServiceImpl implements WareCheckService {
     @Autowired
     private WareCheckRepository wareCheckRepository;
 
-    // 事件发布器
+    // 领域事件发布器
 
     /**
      * 查询库存
@@ -28,7 +28,8 @@ public class WareCheckServiceImpl implements WareCheckService {
      */
     @Override
     @SentinelResource(value="WareCheckService.queryStock",
-            blockHandler = "queryStockBlock", blockHandlerClass = WarehouseBlockHandler.class, fallback = "queryStockFallback", fallbackClass = WarehouseFallback.class)
+            blockHandler = "queryStockBlock", blockHandlerClass = WarehouseBlockHandler.class,
+            fallback = "queryStockFallback", fallbackClass = WarehouseFallback.class)
     public WareCheckResp queryStock(WareCheckReq req) {
         System.out.println("进入warehouse模块的的WareCheckServiceImpl.queryStock方法");
         WareHouse wareHouse = wareCheckRepository.queryStock(req.getGoodsId());

@@ -1,29 +1,88 @@
 package com.gover.plague.cache.service.impl;
 
 import com.gover.plague.cache.service.RedisService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Service;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.GeoResults;
 import org.springframework.data.geo.Point;
-import org.springframework.data.redis.connection.BitFieldSubCommands;
-import org.springframework.data.redis.connection.RedisGeoCommands;
+import org.springframework.data.redis.connection.*;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Service
 @Component
 public class RedisServiceImpl implements RedisService {
 
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
+
+    private static Map<String, RedisConnection> map = new ConcurrentHashMap<>();
+
+    /**
+     * 发布消息
+     * @param channel
+     * @param jsonMsg
+     */
+    public void publish(String channel, String jsonMsg){
+        // 使用高级的redisTemplate
+        redisTemplate.convertAndSend(channel, jsonMsg);
+    }
+
+    /**
+     * 订阅
+     * @param connKey
+     * @param channelName
+     */
+    public void subscribe(String connKey, String channelName) {
+        redisTemplate.execute(new RedisCallback<Object>() {
+            @Override
+            public Object doInRedis(RedisConnection connection) throws DataAccessException {
+                // 定义了一个全局的 ConcurrentHashMap 用来存放连接 因为后面的取消订阅的线程要和订阅的线程用同一个连接
+                map.put(connKey, connection);
+
+                // subscribe 按频道订阅 该方法会阻塞该线程 只有取消订阅才会释放该线程
+                connection.subscribe(new MessageListener() {
+                    @Override
+                    public void onMessage(Message message, byte[] pattern) {
+                        log.info("接收到消息");
+                        System.out.println(new String(message.getBody()));
+                    }
+                }, channelName.getBytes(StandardCharsets.UTF_8));
+
+                // 按模式订阅 pSubscribe 只有取消订阅才会释放该线程
+//                connection.pSubscribe(new MessageListener() {
+//                    @Override
+//                    public void onMessage(Message message, byte[] pattern) {
+//                        System.out.println(new String(message.getBody()));
+//                    }
+//                }, "patternOne".getBytes(StandardCharsets.UTF_8), "patternOne".getBytes(StandardCharsets.UTF_8));
+                return null;
+            }
+        }, true);
+    }
+
+    /**
+     * 取消订阅
+     * @param connKey
+     */
+    public void cancelPub(String connKey){
+        RedisConnection the = map.get(connKey);
+        Subscription subscription = the.getSubscription();
+        subscription.unsubscribe();
+    }
 
     @Override
     public void set(String key, Object value, long time) {

@@ -18,7 +18,7 @@ public class OrderPlaceRepositoryImpl implements OrderPlaceRepository {
     private OrderBuilder orderBuilder;
 
     @Override
-    public Order findOrder(int orderId) {
+    public Order placeOrder(int orderId) {
         OrderDO orderDO = orderPlaceMapper.findOrder(orderId);
         return orderBuilder.toOrder(orderDO);
     }

@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 
 /**
- * 定制化 UserDetailsService，从数据库加载User
+ * 定制化 UserDetailsService，从数据库加载User的相关信息，比如权限
  */
 @Service
 public class LoginUserDetailService implements UserDetailsService {

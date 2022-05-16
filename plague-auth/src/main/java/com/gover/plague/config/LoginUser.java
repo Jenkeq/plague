@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * 登录用户的数据类
+ * 登录用户的数据类，它是一个 UserDetails
  */
 @Data
 public class LoginUser implements UserDetails {

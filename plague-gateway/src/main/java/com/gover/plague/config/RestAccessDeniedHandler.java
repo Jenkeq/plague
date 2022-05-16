@@ -15,13 +15,11 @@ import reactor.core.publisher.Mono;
 
 import java.nio.charset.Charset;
 
-
 /**
  * 自定义返回结果：没有权限访问时
- *
  */
 @Component
-public class RestfulAccessDeniedHandler implements ServerAccessDeniedHandler {
+public class RestAccessDeniedHandler implements ServerAccessDeniedHandler {
 
     @Override
     public Mono<Void> handle(ServerWebExchange exchange, AccessDeniedException denied) {

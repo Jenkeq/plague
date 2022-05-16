@@ -22,18 +22,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 认证服务器配置(密码模式)
- * Created by macro on 2022/4/27.
+ * 认证服务器配置 (密码模式)
+ * Created by macro on 2022/04/27
  */
 @AllArgsConstructor
 @Configuration
 @EnableAuthorizationServer
-public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
+public class OAuth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
     private final LoginUserDetailService userDetailsService;
     private final AuthenticationManager authenticationManager;
-    private final JwtTokenEnhancer jwtTokenEnhancer;
+    private final JWTokenEnhancer JWTokenEnhancer;
 
     private final static String client_id = "plague-app";
     private final static String client_secret = "B8ISFAHAN08HF7NF80WHF008FB0ABF";
@@ -61,7 +61,7 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
         List<TokenEnhancer> delegates = new ArrayList<>();
-        delegates.add(jwtTokenEnhancer);
+        delegates.add(JWTokenEnhancer);
         delegates.add(accessTokenConverter());
         enhancerChain.setTokenEnhancers(delegates); //配置JWT的内容增强器
         endpoints.authenticationManager(authenticationManager)
@@ -83,7 +83,8 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     }
 
     /**
-     * 制作 jwt.jks：在JDK的bin目录下，执行 keytool -genkey -alias jwt -keyalg RSA -keystore jwt.jks，所填密钥必需和Client_secret 相同
+     * 生成jwt.jks：
+     * 在JDK的bin目录下，执行 keytool -genkey -alias jwt -keyalg RSA -keystore jwt.jks，所填密钥必需和 Client_secret 相同
      * @return
      */
     @Bean

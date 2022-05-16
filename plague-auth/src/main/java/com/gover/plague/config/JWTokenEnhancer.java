@@ -9,8 +9,11 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * JWT 增强，将用户信息放入JWT
+ */
 @Component
-public class JwtTokenEnhancer implements TokenEnhancer {
+public class JWTokenEnhancer implements TokenEnhancer {
 
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {

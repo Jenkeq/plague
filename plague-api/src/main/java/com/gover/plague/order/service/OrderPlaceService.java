@@ -3,7 +3,6 @@ package com.gover.plague.order.service;
 import com.gover.plague.common.ResultVO;
 import com.gover.plague.order.req.OrderPlaceReq;
 import com.gover.plague.order.resp.OrderPlaceResp;
-import org.springframework.http.ResponseEntity;
 
 public interface OrderPlaceService {
 
@@ -12,5 +11,5 @@ public interface OrderPlaceService {
      * @param req
      * @return
      */
-    ResultVO<OrderPlaceResp> findOrder(OrderPlaceReq req);
+    ResultVO<OrderPlaceResp> placeOrder(OrderPlaceReq req);
 }

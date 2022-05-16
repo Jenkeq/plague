@@ -14,11 +14,10 @@ import java.util.TreeMap;
 
 
 /**
- * 资源与角色匹配关系管理业务类
- *
+ * 资源（请求的API 路径）与角色匹配关系管理业务类
  */
 @Service
-public class Res2AuthService {
+public class Resource2AuthService {
 
     @Reference
     private RedisService redisService;
@@ -35,6 +34,7 @@ public class Res2AuthService {
         resourceRolesMap.put("/api/warehouse/check/v1/queryStock", Arrays.asList("ADMIN", "DEV"));
         resourceRolesMap.put("/api/order/place/v1/find", Arrays.asList("ADMIN", "DEV"));
 
+        
         redisService.hSetAll(RedisConstant.REDIS_WHITELIST_LIST_KEY, resourceRolesMap);
     }
 }

@@ -18,11 +18,8 @@
 //@EnableWebFluxSecurity
 //public class SecurityConfig {
 //
-//
 //    @Autowired
 //    TokenFilter tokenFilter;
-//
-//
 //
 //    @Bean
 //    SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {

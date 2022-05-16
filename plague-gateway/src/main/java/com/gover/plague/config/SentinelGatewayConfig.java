@@ -28,6 +28,9 @@ import reactor.core.publisher.Mono;
 import javax.annotation.PostConstruct;
 import java.util.*;
 
+/**
+ * Sentinel配置类，用于限流
+ */
 @Configuration
 public class SentinelGatewayConfig {
 
@@ -82,7 +85,7 @@ public class SentinelGatewayConfig {
 //                )
 //        );
 
-        // 方式三.通过自定义api分组进行限流，其这里的资源都在下面进行定义好了对应的匹配路径
+        // 方式三.通过自定义api分组进行限流，这里的资源都在下面进行定义好了对应的匹配路径
         // 这里参数的含义是 IntervalSec秒内可以请求Count次
 //        rules.add(new GatewayFlowRule("plague-order").setCount(1).setIntervalSec(1));
 //        rules.add(new GatewayFlowRule("plague-warehouse").setCount(100).setIntervalSec(1));
