@@ -29,7 +29,9 @@ import javax.annotation.PostConstruct;
 import java.util.*;
 
 /**
- * Sentinel配置类，用于限流
+ * @author gjk
+ * @date 2022/08/30
+ * @desc 限流配置类，使用Sentinel限流
  */
 @Configuration
 public class SentinelGatewayConfig {

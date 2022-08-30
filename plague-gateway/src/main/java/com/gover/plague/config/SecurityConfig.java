@@ -14,6 +14,9 @@
 //
 //import static org.springframework.security.config.Customizer.withDefaults;
 //
+///**
+// * @desc 简单的全局拦截
+// */
 //@Configuration
 //@EnableWebFluxSecurity
 //public class SecurityConfig {

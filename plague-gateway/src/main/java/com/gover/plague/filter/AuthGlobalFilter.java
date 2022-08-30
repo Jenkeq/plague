@@ -14,7 +14,9 @@ import reactor.core.publisher.Mono;
 import java.text.ParseException;
 
 /**
- * 全局过滤器，解析token并放到 header 中
+ * @author gjk
+ * @date 2022/08/30
+ * @desc 全局过滤器，解析token并放到 header 中
  */
 @Component
 public class AuthGlobalFilter implements GlobalFilter, Ordered {

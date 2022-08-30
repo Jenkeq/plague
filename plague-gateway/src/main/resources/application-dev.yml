@@ -4,7 +4,7 @@ spring:
       transport:
         port: 8080
         dashboard: localhost:8080
-      # 动态数据源
+      # Nacos 动态数据源, 动态控制限流阈值
       datasource:
         ds1:
           nacos:
@@ -28,22 +28,22 @@ spring:
           lower-case-service-id: true
       # 路由服务
       routes:
-        # 订单模块路由
+        # 订单模块
         - id: plague-order
           uri: lb://plague-order
           predicates:
             - Path= /api/order/**
-        # 仓库模块路由
+        # 仓库模块
         - id: plague-warehouse
           uri: lb://plague-warehouse
           predicates:
             - Path= /api/warehouse/**
-        # 用户模块路由
+        # 用户模块
         - id: plague-user
           uri: lb://plague-user
           predicates:
             - Path= /api/user/**
-        # 认证模块路由
+        # 认证模块
         - id: plague-auth
           uri: lb://plague-auth
           predicates:

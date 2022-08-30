@@ -17,28 +17,41 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import reactor.core.publisher.Mono;
 
 /**
- * 资源服务器配置
+ * @author gjk
+ * @date 2022/08/30 23:52
+ * @desc 资源服务器(网关相当于是 OAuth 2.0中的资源服务器)，一切配置从这里开始
  */
 @AllArgsConstructor
 @Configuration
 @EnableWebFluxSecurity
 public class ResourceServerConfig {
 
+    // 权限校验器
     private final AuthorizationManager authorizationManager;
+    // 白名单
     private final IgnoreUrlsConfig ignoreUrlsConfig;
+    // 处理未授权
     private final RestAccessDeniedHandler restAccessDeniedHandler;
+    // 处理未认证
     private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+        // JWT 相关配置
         http.oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter());
-
+        // Http 相关配置
         http.authorizeExchange()
-                .pathMatchers(ArrayUtil.toArray(ignoreUrlsConfig.getUrls(), String.class)).permitAll()//白名单配置
-                .anyExchange().access(authorizationManager)//鉴权管理器配置
+                //白名单
+                .pathMatchers(ArrayUtil.toArray(ignoreUrlsConfig.getUrls(), String.class)).permitAll()
+                //权限校验
+                .anyExchange().access(authorizationManager)
+                //异常处理
                 .and().exceptionHandling()
-                .accessDeniedHandler(restAccessDeniedHandler)//处理未授权
-                .authenticationEntryPoint(restAuthenticationEntryPoint)//处理未认证
+                //未授权
+                .accessDeniedHandler(restAccessDeniedHandler)
+                //未认证
+                .authenticationEntryPoint(restAuthenticationEntryPoint)
+                //禁用CSRF
                 .and().csrf().disable();
         return http.build();
     }

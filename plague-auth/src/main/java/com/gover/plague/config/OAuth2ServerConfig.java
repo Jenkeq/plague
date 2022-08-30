@@ -22,8 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 认证服务器配置 (密码模式)
- * Created by macro on 2022/04/27
+ * @author gjk
+ * @desc 认证服务器 (密码模式)，一切配置从这里开始
+ * @date 2022/04/27
  */
 @AllArgsConstructor
 @Configuration
@@ -60,10 +61,12 @@ public class OAuth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
+        //配置JWT的内容增强器
         List<TokenEnhancer> delegates = new ArrayList<>();
         delegates.add(JWTokenEnhancer);
         delegates.add(accessTokenConverter());
-        enhancerChain.setTokenEnhancers(delegates); //配置JWT的内容增强器
+        enhancerChain.setTokenEnhancers(delegates);
+
         endpoints.authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService) //配置加载用户信息的服务
                 .accessTokenConverter(accessTokenConverter())

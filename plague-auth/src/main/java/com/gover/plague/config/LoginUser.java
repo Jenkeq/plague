@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * 登录用户的数据类，它是一个 UserDetails
+ * 登录用户类（技术上的用户类），它是一个 UserDetails
  */
 @Data
 public class LoginUser implements UserDetails {
@@ -31,13 +31,11 @@ public class LoginUser implements UserDetails {
      */
     private Boolean enabled;
     /**
-     * 权限数据
+     * 用户角色列表
      */
     private Collection<SimpleGrantedAuthority> authorities;
 
-    public LoginUser() {
-
-    }
+    public LoginUser() {}
 
     public LoginUser(UserLoginResp user) {
         this.setId(Long.parseLong(user.getId()));

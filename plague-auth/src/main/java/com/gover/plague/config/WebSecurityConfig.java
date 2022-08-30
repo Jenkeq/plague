@@ -11,7 +11,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * WebSecurityConfigurerAdapter 安全配置类
+ * @author gjk
+ * @date 2022/08/30
+ * @desc WebSecurityConfigurerAdapter 安全配置类, 配置一些必要的Bean类
  */
 @Configuration
 @EnableWebSecurity

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * 网关白名单配置
+ * 白名单配置类
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

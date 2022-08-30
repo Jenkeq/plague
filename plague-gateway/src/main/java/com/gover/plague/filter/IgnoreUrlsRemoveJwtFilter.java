@@ -15,8 +15,9 @@ import java.net.URI;
 import java.util.List;
 
 /**
- * 白名单路径访问时需要移除JWT请求头
- *
+ * @author gjk
+ * @date 2022/08/30
+ * @desc 白名单路径访问时 -> 移除JWT请求头
  */
 @Component
 public class IgnoreUrlsRemoveJwtFilter implements WebFilter {

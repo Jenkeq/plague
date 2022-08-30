@@ -19,7 +19,9 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 
 /**
- * 定制化 UserDetailsService，从数据库加载User的相关信息，比如权限
+ * @author gjk
+ * @date 2022/08/30
+ * @desc 从数据库加载User的相关信息，比如角色
  */
 @Service
 public class LoginUserDetailService implements UserDetailsService {
@@ -41,18 +43,18 @@ public class LoginUserDetailService implements UserDetailsService {
             throw new UsernameNotFoundException("用户不存在!");
         }
 
-        // TODO 暂时写死ADMIN权限
+        // TODO 暂时写死ADMIN权限，这个应该要从数据库表中获取
         user.setRoles(Arrays.asList("ADMIN"));
         LoginUser loginUser = new LoginUser(user);
 
         if (!loginUser.isEnabled()) {
-            throw new DisabledException("!loginUser.isEnabled()");
+            throw new DisabledException("用户未被启用");
         } else if (!loginUser.isAccountNonLocked()) {
-            throw new LockedException("!loginUser.isAccountNonLocked()");
+            throw new LockedException("用户账户被锁定");
         } else if (!loginUser.isAccountNonExpired()) {
-            throw new AccountExpiredException("!loginUser.isAccountNonExpired()");
+            throw new AccountExpiredException("用户账户已过期");
         } else if (!loginUser.isCredentialsNonExpired()) {
-            throw new CredentialsExpiredException("!loginUser.isCredentialsNonExpired()");
+            throw new CredentialsExpiredException("用户验证已过期");
         }
 
         // 返回
