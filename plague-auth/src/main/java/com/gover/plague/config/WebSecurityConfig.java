@@ -1,14 +1,19 @@
 package com.gover.plague.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 /**
  * @author gjk
@@ -18,6 +23,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private RedisConnectionFactory redisConnectionFactory;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -39,4 +47,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * 在配置文件添加以下配置, 并添加依赖 <dependency>
+     *             <groupId>org.springframework.boot</groupId>
+     *             <artifactId>spring-boot-starter-data-redis</artifactId>
+     *         </dependency>
+     * spring:
+     *   redis:
+     *     host: 127.0.0.1
+     *     port: 6379
+     *     password: root
+     *     database: 13
+     * @return
+     */
+    @Bean
+    public TokenStore tokenStore() {
+        //使用redis存储token，TokenStore可以自定义实现
+        RedisTokenStore redisTokenStore = new RedisTokenStore(redisConnectionFactory);
+        //设置redis token存储中的前缀
+        redisTokenStore.setPrefix("auth-token:");
+        return redisTokenStore;
+    }
 }
