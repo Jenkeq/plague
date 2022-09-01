@@ -32,7 +32,7 @@ dubbo:
   registry:
     #其中前缀spring-cloud说明：挂载到 Spring Cloud注册中心
     #dubbo服务注册端口，注册中心服务器地址，如果地址没有端口缺省为9090，同一集群内的多个地址用逗号分隔，如：ip:port,ip:port
-    address: spring-cloud://192.168.1.22:8848?namespace=97e8410e-fe73-44d3-a11a-f7801b8d8b7b
+    address: spring-cloud://124.220.173.67:8848?namespace=plague-dev
     check: false
   cloud:
     subscribed-services: plague-cache

@@ -1,38 +1,16 @@
-2022-05-01 11:11:34.847 - Ignore the empty nacos configuration and get it based on dataId[plague-user] & group[PLAGUE] 
-2022-05-01 11:11:34.851 - Ignore the empty nacos configuration and get it based on dataId[plague-user.yaml] & group[PLAGUE] 
-2022-05-01 11:11:34.855 - Ignore the empty nacos configuration and get it based on dataId[plague-user-dev.yaml] & group[PLAGUE] 
-2022-05-01 11:11:36.105 - Endpoint ID 'service-registry' contains invalid characters, please migrate to a valid format. 
-2022-05-01 11:11:38.924 - Endpoint ID 'nacos-config' contains invalid characters, please migrate to a valid format. 
-2022-05-01 11:11:38.925 - Endpoint ID 'nacos-discovery' contains invalid characters, please migrate to a valid format. 
-2022-05-01 11:11:39.570 -  [DUBBO] There's no valid metadata config found, if you are using the simplified mode of registry url, please make sure you have a metadata address configured properly., dubbo version: 2.7.3, current host: 192.168.1.9 
-2022-05-01 11:11:39.658 -  [DUBBO] No spring extension (bean) named:applicationContext, try to find an extension (bean) of type org.springframework.context.ConfigurableApplicationContext, dubbo version: 2.7.3, current host: 192.168.1.9 
-2022-05-01 11:11:39.664 -  [DUBBO] No spring extension (bean) named:applicationContext, type:org.springframework.context.ConfigurableApplicationContext found, stop get bean., dubbo version: 2.7.3, current host: 192.168.1.9 
-2022-05-01 11:11:40.017 -  [DUBBO] There's no valid metadata config found, if you are using the simplified mode of registry url, please make sure you have a metadata address configured properly., dubbo version: 2.7.3, current host: 192.168.1.9 
-2022-05-01 11:11:40.786 - The Spring application[name : plague-cache] does not expose The REST metadata in the Dubbo services. 
-2022-05-01 11:11:41.355 - No URLs will be polled as dynamic configuration sources. 
-2022-05-01 11:11:41.360 - No URLs will be polled as dynamic configuration sources. 
-2022-05-01 11:11:43.405 -  [DUBBO] There's no valid metadata config found, if you are using the simplified mode of registry url, please make sure you have a metadata address configured properly., dubbo version: 2.7.3, current host: 192.168.1.9 
-2022-05-01 11:11:43.428 -  [DUBBO] Use random available port(20881) for protocol dubbo, dubbo version: 2.7.3, current host: 192.168.1.9 
-2022-05-01 11:11:43.540 -  [DUBBO] There's no valid metadata config found, if you are using the simplified mode of registry url, please make sure you have a metadata address configured properly., dubbo version: 2.7.3, current host: 192.168.1.9 
-2022-05-01 11:20:16.397 -  [DUBBO] All clients has disconnected from /192.168.1.9:20881. You can graceful shutdown now., dubbo version: 2.7.3, current host: 192.168.1.9 
-2022-05-01 11:20:16.711 - Destroy method on bean with name 'nacosAutoServiceRegistration' threw an exception: java.lang.NoSuchMethodError: com.alibaba.nacos.api.naming.NamingService.shutDown()V 
-2022-05-01 11:20:16.712 - Destroy method 'close' on bean with name 'nacosServiceRegistry' threw an exception: java.lang.NoSuchMethodError: com.alibaba.nacos.api.naming.NamingService.shutDown()V 
-2022-05-01 11:22:42.424 - Ignore the empty nacos configuration and get it based on dataId[plague-user] & group[PLAGUE] 
-2022-05-01 11:22:42.429 - Ignore the empty nacos configuration and get it based on dataId[plague-user.yaml] & group[PLAGUE] 
-2022-05-01 11:22:42.431 - Ignore the empty nacos configuration and get it based on dataId[plague-user-dev.yaml] & group[PLAGUE] 
-2022-05-01 11:22:43.626 - Endpoint ID 'service-registry' contains invalid characters, please migrate to a valid format. 
-2022-05-01 11:22:45.159 - Endpoint ID 'nacos-config' contains invalid characters, please migrate to a valid format. 
-2022-05-01 11:22:45.159 - Endpoint ID 'nacos-discovery' contains invalid characters, please migrate to a valid format. 
-2022-05-01 11:22:45.523 -  [DUBBO] There's no valid metadata config found, if you are using the simplified mode of registry url, please make sure you have a metadata address configured properly., dubbo version: 2.7.3, current host: 192.168.1.9 
-2022-05-01 11:22:45.596 -  [DUBBO] No spring extension (bean) named:applicationContext, try to find an extension (bean) of type org.springframework.context.ConfigurableApplicationContext, dubbo version: 2.7.3, current host: 192.168.1.9 
-2022-05-01 11:22:45.600 -  [DUBBO] No spring extension (bean) named:applicationContext, type:org.springframework.context.ConfigurableApplicationContext found, stop get bean., dubbo version: 2.7.3, current host: 192.168.1.9 
-2022-05-01 11:22:45.913 -  [DUBBO] There's no valid metadata config found, if you are using the simplified mode of registry url, please make sure you have a metadata address configured properly., dubbo version: 2.7.3, current host: 192.168.1.9 
-2022-05-01 11:22:46.526 - The Spring application[name : plague-cache] does not expose The REST metadata in the Dubbo services. 
-2022-05-01 11:22:47.048 - No URLs will be polled as dynamic configuration sources. 
-2022-05-01 11:22:47.053 - No URLs will be polled as dynamic configuration sources. 
-2022-05-01 11:22:49.222 -  [DUBBO] There's no valid metadata config found, if you are using the simplified mode of registry url, please make sure you have a metadata address configured properly., dubbo version: 2.7.3, current host: 192.168.1.9 
-2022-05-01 11:22:49.236 -  [DUBBO] Use random available port(20883) for protocol dubbo, dubbo version: 2.7.3, current host: 192.168.1.9 
-2022-05-01 11:22:49.322 -  [DUBBO] There's no valid metadata config found, if you are using the simplified mode of registry url, please make sure you have a metadata address configured properly., dubbo version: 2.7.3, current host: 192.168.1.9 
-2022-05-01 11:42:02.754 -  [DUBBO] All clients has disconnected from /192.168.1.9:20883. You can graceful shutdown now., dubbo version: 2.7.3, current host: 192.168.1.9 
-2022-05-01 11:42:03.019 - Destroy method on bean with name 'nacosAutoServiceRegistration' threw an exception: java.lang.NoSuchMethodError: com.alibaba.nacos.api.naming.NamingService.shutDown()V 
-2022-05-01 11:42:03.019 - Destroy method 'close' on bean with name 'nacosServiceRegistry' threw an exception: java.lang.NoSuchMethodError: com.alibaba.nacos.api.naming.NamingService.shutDown()V 
+2022-09-01 23:25:56.874 - Ignore the empty nacos configuration and get it based on dataId[plague-user] & group[PLAGUE] 
+2022-09-01 23:25:56.894 - Ignore the empty nacos configuration and get it based on dataId[plague-user.yaml] & group[PLAGUE] 
+2022-09-01 23:25:56.912 - Ignore the empty nacos configuration and get it based on dataId[plague-user-dev.yaml] & group[PLAGUE] 
+2022-09-01 23:25:58.168 - Endpoint ID 'service-registry' contains invalid characters, please migrate to a valid format. 
+2022-09-01 23:25:59.603 - Endpoint ID 'nacos-config' contains invalid characters, please migrate to a valid format. 
+2022-09-01 23:25:59.604 - Endpoint ID 'nacos-discovery' contains invalid characters, please migrate to a valid format. 
+2022-09-01 23:25:59.944 -  [DUBBO] There's no valid metadata config found, if you are using the simplified mode of registry url, please make sure you have a metadata address configured properly., dubbo version: 2.7.3, current host: 192.168.0.104 
+2022-09-01 23:26:00.006 -  [DUBBO] No spring extension (bean) named:applicationContext, try to find an extension (bean) of type org.springframework.context.ConfigurableApplicationContext, dubbo version: 2.7.3, current host: 192.168.0.104 
+2022-09-01 23:26:00.009 -  [DUBBO] No spring extension (bean) named:applicationContext, type:org.springframework.context.ConfigurableApplicationContext found, stop get bean., dubbo version: 2.7.3, current host: 192.168.0.104 
+2022-09-01 23:26:00.360 -  [DUBBO] There's no valid metadata config found, if you are using the simplified mode of registry url, please make sure you have a metadata address configured properly., dubbo version: 2.7.3, current host: 192.168.0.104 
+2022-09-01 23:26:01.083 - The Spring application[name : plague-cache] does not expose The REST metadata in the Dubbo services. 
+2022-09-01 23:26:01.649 - No URLs will be polled as dynamic configuration sources. 
+2022-09-01 23:26:01.654 - No URLs will be polled as dynamic configuration sources. 
+2022-09-01 23:26:03.592 -  [DUBBO] There's no valid metadata config found, if you are using the simplified mode of registry url, please make sure you have a metadata address configured properly., dubbo version: 2.7.3, current host: 192.168.0.104 
+2022-09-01 23:26:03.624 -  [DUBBO] Use random available port(20881) for protocol dubbo, dubbo version: 2.7.3, current host: 192.168.0.104 
+2022-09-01 23:26:03.731 -  [DUBBO] There's no valid metadata config found, if you are using the simplified mode of registry url, please make sure you have a metadata address configured properly., dubbo version: 2.7.3, current host: 192.168.0.104 

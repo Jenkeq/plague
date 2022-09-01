@@ -33,6 +33,7 @@ public class Resource2AuthService {
         resourceRolesMap = new TreeMap<>();
 
         // TODO URI路径资源对应的权限应该由数据库表加载
+        resourceRolesMap.put("/api/order/v1/place", Arrays.asList("ADMIN", "DEV"));
         resourceRolesMap.put("/api/user/hello", Arrays.asList("ADMIN", "DEV"));
         resourceRolesMap.put("/api/warehouse/check/v1/queryStock", Arrays.asList("ADMIN", "DEV"));
         resourceRolesMap.put("/api/order/place/v1/find", Arrays.asList("ADMIN", "DEV"));

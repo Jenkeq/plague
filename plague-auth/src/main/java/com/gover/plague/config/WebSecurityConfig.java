@@ -24,9 +24,6 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private RedisConnectionFactory redisConnectionFactory;
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -36,36 +33,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated();
     }
 
+    /**
+     * 重写这个方法只为定义 AuthenticationManager Bean类，这个类以及下面这个PasswordEncoder类都是为了配置OAuth2ServerConfig类
+     * @return
+     * @throws Exception
+     */
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
     /**
-     * 在配置文件添加以下配置, 并添加依赖 <dependency>
-     *             <groupId>org.springframework.boot</groupId>
-     *             <artifactId>spring-boot-starter-data-redis</artifactId>
-     *         </dependency>
-     * spring:
-     *   redis:
-     *     host: 127.0.0.1
-     *     port: 6379
-     *     password: root
-     *     database: 13
+     * 定义密码编码类
      * @return
      */
     @Bean
-    public TokenStore tokenStore() {
-        //使用redis存储token，TokenStore可以自定义实现
-        RedisTokenStore redisTokenStore = new RedisTokenStore(redisConnectionFactory);
-        //设置redis token存储中的前缀
-        redisTokenStore.setPrefix("auth-token:");
-        return redisTokenStore;
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
