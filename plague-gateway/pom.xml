@@ -9,7 +9,7 @@
     </parent>
 
     <groupId>com.gover.plague</groupId>
-    <artifactId>plague-plague-gateway</artifactId>
+    <artifactId>plague-gateway</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <name>plague-gateway</name>

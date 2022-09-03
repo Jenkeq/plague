@@ -11,7 +11,7 @@ spring:
             server-addr: 124.220.173.67:8848
             username: nacos
             password: nacos
-            dataId: plague-warehouse-flow-rule-dev
+            dataId: plague-sentinel-datasource
             namespace: plague-dev
             groupId: PLAGUE
             data-type: json
@@ -88,7 +88,7 @@ dubbo:
     #如果没有配置port，则自动采用默认端口，如果配置为-1，则会分配一个没有被占用的端口。Dubbo 2.4.0+，分配的端口在协议缺省端口的基础上增长，确保端口段可控
     port: -1
   registry:
-    #其中前缀spring-cloud说明：挂载到 Spring Cloud注册中心
+    #其中前缀spring-cloud说明：挂载到 Spring Cloud 注册中心
     #dubbo服务注册端口，注册中心服务器地址，如果地址没有端口缺省为9090，同一集群内的多个地址用逗号分隔，如：ip:port,ip:port
     address: spring-cloud://124.220.173.67:8848?namespace=plague-dev
     check: false

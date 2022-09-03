@@ -33,8 +33,6 @@ public class WareCheckServiceImpl implements WareCheckService {
     public WareCheckResp queryStock(WareCheckReq req) {
         System.out.println("进入warehouse模块的的WareCheckServiceImpl.queryStock方法");
         WareHouse wareHouse = wareCheckRepository.queryStock(req.getGoodsId());
-
-        // 返回
         return new WareCheckResp(wareHouse.getStock());
     }
 

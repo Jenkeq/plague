@@ -11,6 +11,24 @@
         "pattern": "/api/warehouse/**",
         "count": 1,
         "intervalSec": 1
+    },
+
+    #2022/09/01
+    {
+        "resource": "plague-order",
+        "resourceMode": 0,
+        "count": 10000,
+        "intervalSec": 10,
+        "controlBehavior": 0,
+        "clusterMode": false
+    },
+    {
+        "resource": "plague-warehouse",
+        "resourceMode": 0,
+        "count": 1,
+        "intervalSec": 100,
+        "controlBehavior": 0,
+        "clusterMode": false
     }
 ]
 
