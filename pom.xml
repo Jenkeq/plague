@@ -85,9 +85,9 @@
         <sentinel-datasource-nacos.version>1.7.1</sentinel-datasource-nacos.version>
         <sentinel-apache-dubbo-adapter.version>1.7.1</sentinel-apache-dubbo-adapter.version>
 
+        <!-- 安全三大件 -->
         <!-- spring boot security -->
         <spring-boot-starter-security.version>2.3.1.RELEASE</spring-boot-starter-security.version>
-
         <!-- spring cloud security -->
         <spring-cloud-starter-security.version>2.1.2.RELEASE</spring-cloud-starter-security.version>
         <spring-cloud-starter-oauth2.version>2.1.2.RELEASE</spring-cloud-starter-oauth2.version>
@@ -173,7 +173,7 @@
                 <version>${jjwt.version}</version>
             </dependency>
 
-<!-- spring cloud gateway-->
+<!-- spring cloud gateway 及 security相关 -->
 <!--            <dependency>-->
 <!--                <groupId>org.springframework.cloud</groupId>-->
 <!--                <artifactId>spring-cloud-starter-gateway</artifactId>-->
@@ -192,11 +192,11 @@
 <!--                <version>${spring-cloud-starter-oauth2.version}</version>-->
 <!--            </dependency>-->
 
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-security</artifactId>
-                <version>${spring-cloud-starter-security.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.springframework.cloud</groupId>-->
+<!--                <artifactId>spring-cloud-starter-security</artifactId>-->
+<!--                <version>${spring-cloud-starter-security.version}</version>-->
+<!--            </dependency>-->
 
             <!-- sentinel dubbo -->
             <dependency>

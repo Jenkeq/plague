@@ -17,6 +17,11 @@ public class OrderPlaceController {
     @Autowired
     private OrderPlaceService orderPlaceService;
 
+    @PostMapping("/r/r1")
+    public ResultVO<String> findOrder2(){
+        return ResultVO.success("ok");
+    }
+
     @PostMapping("/v1/place")
     public ResultVO<OrderPlaceResp> findOrder(@RequestBody OrderPlaceReq req){
         return orderPlaceService.placeOrder(req);

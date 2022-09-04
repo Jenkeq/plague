@@ -50,11 +50,11 @@ spring:
             - Path= /auth/**
           filters:
             - StripPrefix=1
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: 'http://127.0.0.1:9095/rsa/publicKey' #配置RSA的公钥访问地址
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          jwk-set-uri: 'http://127.0.0.1:9095/rsa/publicKey' #配置RSA的公钥访问地址
       # CORS 跨域请求
 #      globalcors:
 #        cors-configurations:
@@ -71,12 +71,16 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
+#配置白名单路径
 secure:
   ignore:
-    urls: #配置白名单路径
-      - "/actuator/**"
+    urls:
       - "/auth/oauth/token"
+      - "/sso/oauth/check_token"
+      - "/sso/oauth/refresh_token"
+      - "/actuator/**"
 
+#dubbo配置
 dubbo:
   application:
     name: plague-gateway
@@ -93,7 +97,7 @@ dubbo:
     address: spring-cloud://124.220.173.67:8848?namespace=plague-dev
     check: false
   cloud:
-    subscribed-services: plague-cache
+    subscribed-services:
   provider:
     loadbalance: roundrobin
   consumer:

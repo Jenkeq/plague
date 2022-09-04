@@ -1,4 +1,18 @@
-# 配置内容 - nacos config
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  jackson:
+    default-property-inclusion: non_null  # JSON返回值去除null和空字段
+    serialization:
+      write-dates-as-timestamps: true  # JSON返回时间为时间戳格式
+  datasource:
+    db1:
+      url: jdbc:mysql://127.0.0.1:3306/plague_user?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
+      username: root
+      password: qwe123..
+      driver-class-name: com.mysql.jdbc.Driver
+
+# 配置内容 - nacos
 dubbo:
   application:
     name: plague-auth
@@ -15,7 +29,7 @@ dubbo:
     address: spring-cloud://124.220.173.67:8848?namespace=plague-dev
     check: false
   cloud:
-    subscribed-services: plague-cache,plague-user
+    subscribed-services: plague-user
   provider:
     loadbalance: roundrobin
   consumer:
