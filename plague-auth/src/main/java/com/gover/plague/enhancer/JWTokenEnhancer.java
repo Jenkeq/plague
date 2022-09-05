@@ -24,7 +24,7 @@ public class JWTokenEnhancer implements TokenEnhancer {
     private ObjectMapper objectMapper;
 
     /**
-     *
+     * JWT增强
      * @param accessToken
      * @param authentication
      * @return
@@ -35,6 +35,7 @@ public class JWTokenEnhancer implements TokenEnhancer {
         SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
         try {
             String s = objectMapper.writeValueAsString(securityUser);
+            // JWT中不能放置敏感信息
             Map<String,Object> map = objectMapper.readValue(s, new TypeReference<Map<String,Object>>(){});
             map.remove("password");
             map.remove("authorities");
@@ -42,7 +43,6 @@ public class JWTokenEnhancer implements TokenEnhancer {
             map.remove("accountNonLocked");
             map.remove("credentialsNonExpired");
             map.remove("enabled");
-            map.put("tokenType",accessToken.getTokenType());
 
             additionalInfo.put("userInfo" ,map);
             ((DefaultOAuth2AccessToken)accessToken).setAdditionalInformation(additionalInfo);

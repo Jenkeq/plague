@@ -62,7 +62,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
      * token信息的额外信息处理
      */
     @Autowired
-    private JWTokenEnhancer JWTokenEnhancer;
+    private JWTokenEnhancer jwtokenEnhancer;
 
     @Autowired
     private DataSource dataSource;
@@ -89,45 +89,48 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         /**
-         * 一般生产环境，将客户端信息存储在内存中
+         * 生产环境，将客户端信息存储在内存中
          */
         clients.jdbc(dataSource);
         /**
-         * 测试用，将客户端信息存储在内存中
+         * 测试环境，将客户端信息存储在内存中
          */
 //        clients.inMemory()
 //                .withClient("c1")   // client_id
 //                .secret(passwordEncoder().encode("secret"))       // client_secret
 //                .authorizedGrantTypes("authorization_code","password")     // 该client允许的授权类型
-//                .scopes("app")     // 允许的授权范围
+//                .scopes("all")     // 允许的授权范围
 //                .autoApprove(true); //登录后绕过批准询问(/oauth/confirm_access)
     }
 
     /**
-     * token增强类
-     *
-     * @return
-     */
-    public TokenEnhancerChain tokenEnhancer() {
-        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(JWTokenEnhancer, jwtAccessTokenConverter));
-        return tokenEnhancerChain;
-    }
-
-    /**
      * token 令牌服务
-     *
      * @return
      */
     @Bean
     public AuthorizationServerTokenServices tokenServices() {
         DefaultTokenServices services = new DefaultTokenServices();
-        services.setSupportRefreshToken(true); //支持refreshtoken
+        services.setSupportRefreshToken(true); //支持refresh_token
         services.setTokenStore(tokenStore);//token的保存方式
         services.setTokenEnhancer(tokenEnhancer());//token里加点信息
         return services;
     }
 
+    /**
+     * token增强类
+     * @return
+     */
+    public TokenEnhancerChain tokenEnhancer() {
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(jwtokenEnhancer, jwtAccessTokenConverter));
+        return tokenEnhancerChain;
+    }
+
+    /**
+     * 授权码服务类
+     * @param dataSource
+     * @return
+     */
     @Bean
     public AuthorizationCodeServices authorizationCodeServices(DataSource dataSource) {
         return new JdbcAuthorizationCodeServices(dataSource);
@@ -135,7 +138,6 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
     /**
      * 配置认证服务端点
-     *
      * @param endpoints
      * @throws Exception
      */
@@ -154,6 +156,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
     /**
      * 配置：安全检查流程,用来配置令牌端点（Token Endpoint）的安全与权限访问
+     *
      * 默认过滤器：BasicAuthenticationFilter
      * 1、oauth_client_details表中clientSecret字段加密【ClientDetails属性secret】
      * 2、CheckEndpoint类的接口 oauth/check_token 无需经过过滤器过滤，默认值：denyAll()

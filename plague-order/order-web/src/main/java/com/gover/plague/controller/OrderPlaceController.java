@@ -4,11 +4,12 @@ import com.gover.plague.common.ResultVO;
 import com.gover.plague.order.req.OrderPlaceReq;
 import com.gover.plague.order.resp.OrderPlaceResp;
 import com.gover.plague.order.service.OrderPlaceService;
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.bind.annotation.*;
+
+import java.nio.charset.StandardCharsets;
 
 @RestController
 @RequestMapping("/api/order")
@@ -23,7 +24,9 @@ public class OrderPlaceController {
     }
 
     @PostMapping("/v1/place")
-    public ResultVO<OrderPlaceResp> findOrder(@RequestBody OrderPlaceReq req){
+    public ResultVO<OrderPlaceResp> findOrder(@RequestBody OrderPlaceReq req,@RequestHeader HttpHeaders headers){
+        String s = new String(Base64.decode(headers.getFirst("token-info")));
+        System.out.println(s);
         return orderPlaceService.placeOrder(req);
     }
 }

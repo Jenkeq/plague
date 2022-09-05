@@ -97,7 +97,7 @@ dubbo:
     address: spring-cloud://124.220.173.67:8848?namespace=plague-dev
     check: false
   cloud:
-    subscribed-services:
+    subscribed-services: plague-cache
   provider:
     loadbalance: roundrobin
   consumer:

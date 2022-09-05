@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
  * @date 2022/08/30
  * @desc 权限校验（包含访问资源和角色的映射校验）
  */
+@Deprecated
 @Component
 public class AuthorizationManager implements ReactiveAuthorizationManager<AuthorizationContext> {
 

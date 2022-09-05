@@ -1,11 +1,10 @@
 package com.gover.plague.config;
 
 import com.gover.plague.constant.AuthConstant;
-import com.gover.plague.service.UserDetailsServiceImpl;
+import com.gover.plague.service.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -18,7 +17,7 @@ public class TokenStoreConfig {
     private static final String SIGNING_KEY = AuthConstant.SIGNING_KEY;
 
     @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    private UserDetailService userDetailsService;
 
     @Bean
     public TokenStore tokenStore() {
@@ -28,6 +27,7 @@ public class TokenStoreConfig {
     @Bean("accessTokenConverter")
     public JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
+
         DefaultAccessTokenConverter tokenConverter = new DefaultAccessTokenConverter();
         DefaultUserAuthenticationConverter userTokenConverter = new DefaultUserAuthenticationConverter();
 

@@ -26,7 +26,7 @@ public class ResultVO<T> implements Serializable {
      *
      */
     public static <T> ResultVO<T> success() {
-        return new ResultVO<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage());
+        return new ResultVO<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg());
     }
 
     /**
@@ -35,7 +35,7 @@ public class ResultVO<T> implements Serializable {
      * @param data 获取的数据
      */
     public static <T> ResultVO<T> success(T data) {
-        return new ResultVO<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage(), data);
+        return new ResultVO<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(), data);
     }
 
     /**
@@ -53,7 +53,7 @@ public class ResultVO<T> implements Serializable {
      * @param errorCode 错误码
      */
     public static <T> ResultVO<T> failed(IErrorCode errorCode) {
-        return new ResultVO<T>(errorCode.getCode(), errorCode.getMessage(), null);
+        return new ResultVO<T>(errorCode.getCode(), errorCode.getMsg(), null);
     }
 
     /**
@@ -99,14 +99,14 @@ public class ResultVO<T> implements Serializable {
      * 未登录返回结果
      */
     public static <T> ResultVO<T> unauthorized(T data) {
-        return new ResultVO<T>(ResultCode.UNAUTHORIZED.getCode(), ResultCode.UNAUTHORIZED.getMessage(), data);
+        return new ResultVO<T>(ResultCode.UNAUTHORIZED.getCode(), ResultCode.UNAUTHORIZED.getMsg(), data);
     }
 
     /**
      * 未授权返回结果
      */
     public static <T> ResultVO<T> forbidden(T data) {
-        return new ResultVO<T>(ResultCode.FORBIDDEN.getCode(), ResultCode.FORBIDDEN.getMessage(), data);
+        return new ResultVO<T>(ResultCode.FORBIDDEN.getCode(), ResultCode.FORBIDDEN.getMsg(), data);
     }
 
     public long getCode() {

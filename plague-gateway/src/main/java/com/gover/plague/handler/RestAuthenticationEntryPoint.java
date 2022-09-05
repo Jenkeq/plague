@@ -18,6 +18,7 @@ import java.nio.charset.Charset;
 /**
  * 自定义返回结果：没有登录或token过期时
  */
+@Deprecated
 @Component
 public class RestAuthenticationEntryPoint implements ServerAuthenticationEntryPoint {
 

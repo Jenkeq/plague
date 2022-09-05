@@ -18,6 +18,7 @@ import java.nio.charset.Charset;
 /**
  * 自定义返回结果：没有权限访问时
  */
+@Deprecated
 @Component
 public class RestAccessDeniedHandler implements ServerAccessDeniedHandler {
 

@@ -1,14 +1,21 @@
 package com.gover.plague.filter;
 
+import cn.hutool.core.convert.Convert;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.gover.plague.cache.service.RedisService;
+import com.gover.plague.common.ResultCode;
 import com.gover.plague.config.IgnoreUrlsConfig;
 import com.gover.plague.constant.AuthConstant;
+import com.gover.plague.constant.RedisConstant;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang.StringUtils;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -28,10 +35,7 @@ import reactor.core.publisher.Mono;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static org.springframework.web.reactive.socket.CloseStatus.SERVER_ERROR;
 
@@ -42,11 +46,16 @@ import static org.springframework.web.reactive.socket.CloseStatus.SERVER_ERROR;
 @Component
 public class TokenFilter implements GlobalFilter, Ordered {
 
+    @Reference
+    private RedisService redisService;
+
     private final IgnoreUrlsConfig ignoreUrlsConfig;
 
     private static final String SIGNING_KEY = AuthConstant.SIGNING_KEY;
 
     private static final String BEAR_HEADER = "Bearer ";
+
+    private static final Gson gson = new Gson();
 
     /**
      * 该值要和auth-server中配置的签名相同
@@ -60,16 +69,16 @@ public class TokenFilter implements GlobalFilter, Ordered {
         ServerHttpRequest serverRequest = exchange.getRequest();
         // 将Payload数据放到header
         ServerHttpRequest.Builder builder = serverRequest.mutate();
-        // 权限校验
-        URI uri = exchange.getRequest().getURI();
-        // 可放行的URI
-        String resUri = uri.getPath();
+        // 取出URI
+        String resUri = exchange.getRequest().getURI().getPath();
+        // ======================= 第一步校验：验证token =======================
+        Map<String, Object> userInfo = null;
         List<String> ignoreList = ignoreUrlsConfig.getUrls();
-        if(ignoreList !=null && !ignoreList.contains(resUri)){
+        if(ignoreList != null && !ignoreList.contains(resUri)){
             String token = serverRequest.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
-            // 第一步，如果没有token,则直接返回401
+            // 第一步，如果没有token,则直接返回错误
             if (StringUtils.isEmpty(token)) {
-                return unAuthorized(exchange,"未认证的请求：Token缺失",null);
+                return unAuthorized(exchange, ResultCode.TOKENISM.getMsg(), ResultCode.TOKENISM.getCode());
             }
 
             // 第二步，验证并获取PayLoad
@@ -78,21 +87,37 @@ public class TokenFilter implements GlobalFilter, Ordered {
                 Jwt jwt = JwtHelper.decodeAndVerify(token.replace(BEAR_HEADER, ""), new MacSigner(SIGNING_KEY));
                 payLoad = jwt.getClaims();
             } catch (Exception e) {
-                return unAuthorized(exchange,"未认证的请求：Token无效",null);
+                return unAuthorized(exchange, ResultCode.TOKENIZER.getMsg(),ResultCode.TOKENIZER.getCode());
             }
             try {
                 // 取出exp字段，判断token是否已经过期
-                Map<String, Object> map = objectMapper.readValue(payLoad, new TypeReference<Map<String, Object>>() {});
-                long expiration = ((Integer) map.get("exp")) * 1000L;
+                userInfo = objectMapper.readValue(payLoad, new TypeReference<Map<String, Object>>() {});
+                long expiration = ((Integer) userInfo.get("exp")) * 1000L;
                 if (expiration < System.currentTimeMillis()) {
-                    return unAuthorized(exchange,"Token已过期",401);
+                    return unAuthorized(exchange, ResultCode.UNAUTHORIZED.getMsg(),ResultCode.UNAUTHORIZED.getCode());
+                }
+
+                // ======================= 第二步校验：验证URL和Role映射关系是否与当前访问用户的Role匹配 =======================
+                try {
+                    // 将Redis中的key为REDIS_WHITELIST_LIST_KEY的值取出，这是一个Map，将这个Map中key为uri的值取出，值是一个List<String>类型的Role
+                    Object obj = redisService.hGet(RedisConstant.REDIS_WHITELIST_LIST_KEY, resUri);
+                    List<String> uriAuthList = Convert.toList(String.class, obj);
+                    List<String> userAuthList = gson.fromJson(JSON.toJSONString(userInfo.get("authorities")), List.class);
+                    // retainAll方法：如果 uriAuthList 中有 userAuthList 没有的数据, 则返回false
+                    if (Collections.disjoint(uriAuthList, userAuthList == null ? Collections.EMPTY_LIST : userAuthList)) {
+                        return unAuthorized(exchange, ResultCode.FORBIDDEN.getMsg(), ResultCode.FORBIDDEN.getCode());
+                    }
+                }catch (Exception e){
+                    throw new RuntimeException("URL权限验证出错");
                 }
             } catch (IOException e) {
-                return unAuthorized(exchange,"未认证的请求：Token错误",null);
+                return unAuthorized(exchange, ResultCode.TOKENIZER.getMsg(),ResultCode.TOKENIZER.getCode());
             }
+            // 无状态实现
             builder.header("token-info", Base64.encode(payLoad.getBytes(StandardCharsets.UTF_8))).build();
         }
-        // 第三步，继续执行
+
+        // 继续执行
         return chain.filter(exchange.mutate().request(builder.build()).build());
     }
 

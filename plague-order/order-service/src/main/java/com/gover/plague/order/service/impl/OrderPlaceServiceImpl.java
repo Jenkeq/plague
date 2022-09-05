@@ -13,7 +13,11 @@ import com.gover.plague.warehouse.service.WareCheckService;
 import org.apache.dubbo.config.annotation.Reference;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Component;
+
+import javax.servlet.ServletContext;
 
 @Service
 @Component
@@ -24,6 +28,9 @@ public class OrderPlaceServiceImpl implements OrderPlaceService {
 
     @Reference(check = false)
     private WareCheckService wareCheckService;
+
+    @Autowired
+    private ServletContext servletContext;
 
     // 事件发布器
     // 领域服务
@@ -37,6 +44,7 @@ public class OrderPlaceServiceImpl implements OrderPlaceService {
     @Override
     // @ApiAccessLog(desc = "根据订单ID查找订单")
     public ResultVO<OrderPlaceResp> placeOrder(OrderPlaceReq req) {
+
         // 查询库存
         WareCheckReq wareCheckReq = new WareCheckReq();
         wareCheckReq.setGoodsId(1);
