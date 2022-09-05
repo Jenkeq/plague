@@ -1,9 +1,12 @@
 package com.gover.plague.user.service.impl;
 
 import com.gover.plague.cache.service.RedisService;
+import com.gover.plague.common.ResultVO;
+import com.gover.plague.entity.ResRole;
 import com.gover.plague.entity.User;
 import com.gover.plague.repository.UserRepository;
 import com.gover.plague.user.req.UserLoginReq;
+import com.gover.plague.user.resp.ResRoleResp;
 import com.gover.plague.user.resp.UserLoginResp;
 import com.gover.plague.user.service.UserLoginService;
 import com.gover.plague.util.JWTUtil;
@@ -14,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -32,7 +37,17 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Override
     public UserLoginResp queryUserByName(UserLoginReq req) {
         User user = userRepository.getUserByName(req.getUserName());
-        return new UserLoginResp(user.getId(), user.getUserName(), user.getPassword(), user.getStatus(), null, null);
+        return new UserLoginResp(user.getId(), user.getUserName(), user.getPassword(), user.getStatus(), null, user.getRoles());
+    }
+
+    @Override
+    public List<ResRoleResp> getAllResRole() {
+        List<ResRoleResp> respList = new ArrayList<>();
+        List<ResRole> allResRole = userRepository.getAllResRole();
+        for (ResRole resRole : allResRole) {
+            respList.add(new ResRoleResp(resRole.getRoleName(), resRole.getUrl()));
+        }
+        return respList;
     }
 
     @Override

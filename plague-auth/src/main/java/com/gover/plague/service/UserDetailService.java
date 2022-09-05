@@ -1,6 +1,6 @@
 package com.gover.plague.service;
 
-import com.gover.plague.dto.SecurityUser;
+import com.gover.plague.entity.SecurityUser;
 import com.gover.plague.user.req.UserLoginReq;
 import com.gover.plague.user.resp.UserLoginResp;
 import com.gover.plague.user.service.UserLoginService;
@@ -9,8 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
 
 /**
  * @author gjk
@@ -29,7 +27,6 @@ public class UserDetailService implements UserDetailsService {
         UserLoginReq req = new UserLoginReq();
         req.setUserName(username);
         UserLoginResp userResp = userLoginService.queryUserByName(req);
-        userResp.setRoles(Arrays.asList("ROLE_ADMIN"));
         if(userResp == null){
             throw new UsernameNotFoundException("用户名或密码错误!");
         }

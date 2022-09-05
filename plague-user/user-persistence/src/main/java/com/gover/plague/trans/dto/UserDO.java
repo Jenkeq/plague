@@ -7,5 +7,6 @@ public class UserDO {
     String id;
     String userName;
     String password;
+    String roleName;
     String status;
 }

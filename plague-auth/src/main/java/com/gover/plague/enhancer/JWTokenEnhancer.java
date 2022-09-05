@@ -2,7 +2,7 @@ package com.gover.plague.enhancer;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gover.plague.dto.SecurityUser;
+import com.gover.plague.entity.SecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -35,8 +35,8 @@ public class JWTokenEnhancer implements TokenEnhancer {
         SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
         try {
             String s = objectMapper.writeValueAsString(securityUser);
-            // JWT中不能放置敏感信息
             Map<String,Object> map = objectMapper.readValue(s, new TypeReference<Map<String,Object>>(){});
+            // JWT中不能放置敏感信息
             map.remove("password");
             map.remove("authorities");
             map.remove("accountNonExpired");

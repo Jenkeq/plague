@@ -6,9 +6,19 @@
 <mapper namespace="com.gover.plague.mapper.UserMapper">
 
     <select id="getUserByName" resultType="com.gover.plague.trans.dto.UserDO">
-        select t.id as id,t.username as userName,t.password as password,t.status as status
-        from plague_user.t_user t
-        where t.username = #{req}
+        select tu.id as id,tu.username as userName,tu.password as password,tu.status as status,tr.role_name as roleName
+        from plague_user.t_user tu,plague_user.t_role tr,plague_user.t_user_role tur
+        where 1=1
+        and tu.username = #{req}
+        and tu.id = tur.user_id
+        and tr.id = tur.role_id
     </select>
 
+    <select id="getAllResRole" resultType="com.gover.plague.trans.dto.ResRoleDO">
+        select tr.role_name as roleName,tp.url as url
+        from plague_user.t_role tr,plague_user.t_permission tp,plague_user.t_role_permission trp
+        where 1=1
+        and tr.id = trp.role_id
+        and tp.id = trp.permission_id
+    </select>
 </mapper>

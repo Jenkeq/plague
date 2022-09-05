@@ -2,15 +2,13 @@ package com.gover.plague.service;
 
 import com.gover.plague.cache.service.RedisService;
 import com.gover.plague.constant.RedisConstant;
+import com.gover.plague.user.resp.ResRoleResp;
 import com.gover.plague.user.service.UserLoginService;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * @author gjk
@@ -31,13 +29,26 @@ public class Resource2AuthService {
     @PostConstruct
     public void initData() {
         resourceRolesMap = new TreeMap<>();
+        // 将数据库表中的资源和角色映射关系放进去
+        List<ResRoleResp> allResRole = userLoginService.getAllResRole();
+        for (ResRoleResp resp : allResRole) {
+            if(resourceRolesMap.containsKey(resp.getUrl())){
+                resourceRolesMap.get(resp.getUrl()).add(resp.getRoleName());
+            }
+            else{
+                List<String> urlList = new ArrayList<>();
+                urlList.add(resp.getRoleName());
+                resourceRolesMap.put(resp.getUrl(), urlList);
+            }
+        }
 
-        // TODO URI路径资源对应的权限应该由数据库表加载
-        resourceRolesMap.put("/api/order/v1/place", Arrays.asList("ROLE_ADMIN", "ROLE_DEV"));
-        resourceRolesMap.put("/api/warehouse/check/v1/queryStock", Arrays.asList("ROLE_ADMIN"));
-        resourceRolesMap.put("/api/order/place/v1/find", Arrays.asList("ROLE_ADMIN"));
+//        测试环境
+//        resourceRolesMap.clear();
+//        resourceRolesMap.put("/api/order/v1/place", Arrays.asList("ROLE_ADMIN", "ROLE_DEV"));
+//        resourceRolesMap.put("/api/warehouse/check/v1/queryStock", Arrays.asList("ROLE_ADMIN"));
+//        resourceRolesMap.put("/api/order/place/v1/find", Arrays.asList("ROLE_ADMIN"));
 
         // 在gateway模块会将这个Map取出进行验证
-        redisService.hSetAll(RedisConstant.REDIS_WHITELIST_LIST_KEY, resourceRolesMap);
+        redisService.hSetAll(RedisConstant.REDIS_RES2ROLE_KEY, resourceRolesMap);
     }
 }
