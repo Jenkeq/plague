@@ -1,6 +1,7 @@
 package com.gover.plague.filter;
 
 import cn.hutool.core.convert.Convert;
+import cn.hutool.crypto.digest.MD5;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -12,6 +13,7 @@ import com.gover.plague.common.ResultCode;
 import com.gover.plague.config.IgnoreUrlsConfig;
 import com.gover.plague.constant.AuthConstant;
 import com.gover.plague.constant.RedisConstant;
+import com.gover.plague.util.AESUtil;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang.StringUtils;
@@ -73,8 +75,7 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
         ServerHttpRequest serverRequest = exchange.getRequest();
         ServerHttpRequest.Builder builder = serverRequest.mutate();
         String resUri = exchange.getRequest().getURI().getPath();
-
-        // ======================= 第一步校验：验证token =======================
+        // ======================= 第一步：验证token =======================
         Map<String, Object> userInfo = null;
         List<String> ignoreList = ignoreUrlsConfig.getUrls();
         if(ignoreList != null && !ignoreList.contains(resUri)){
@@ -100,17 +101,24 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
                     return unAuthorized(exchange, ResultCode.UNAUTHORIZED.getMsg(),ResultCode.UNAUTHORIZED.getCode());
                 }
 
-                // ======================= 第二步校验：验证URL和Role映射关系是否与当前访问用户的Role匹配 =======================
+                // ======================= 第二步：验证URL和Role映射关系是否与当前访问用户的Role匹配 =======================
                 try {
-                    // 将Redis中的key为REDIS_WHITELIST_LIST_KEY的值取出，这是一个Map，将这个Map中key为uri的值取出，值是一个List<String>类型的Role
+                    // 将Redis中的key为REDIS_WHITELIST_LIST_KEY的值取出，这是一个Map，将这个Map中key为uri的值取出，值是一个List<String>类型的Role列表
                     Object obj = redisService.hGet(RedisConstant.REDIS_RES2ROLE_KEY, resUri);
+                    if(Objects.isNull(obj)){
+                        // 如果访问不存在的资源，直接返回404
+                        return unAuthorized(exchange, ResultCode.NOTFOUND.getMsg(), ResultCode.NOTFOUND.getCode());
+                    }
                     List<String> uriAuthList = Convert.toList(String.class, obj);
                     List<String> userAuthList = gson.fromJson(JSON.toJSONString(userInfo.get("authorities")), List.class);
                     if (Collections.disjoint(uriAuthList, userAuthList == null ? Collections.EMPTY_LIST : userAuthList)) {
                         return unAuthorized(exchange, ResultCode.FORBIDDEN.getMsg(), ResultCode.FORBIDDEN.getCode());
                     }
+
+                    // ======================= 第三步：添加flag验证请求是从网关转发的 =======================
+                    builder.header("flag", MD5.create().digestHex(AESUtil.encrypt(new String(payLoad.getBytes(StandardCharsets.UTF_8)), AuthConstant.AES_SALT_VALUE)));
                 }catch (Exception e){
-                    return unAuthorized(exchange, ResultCode.INTERERROR.getMsg(),ResultCode.INTERERROR.getCode());
+                    return unAuthorized(exchange, ResultCode.INTER_ERROR.getMsg(),ResultCode.INTER_ERROR.getCode());
                 }
             } catch (IOException e) {
                 return unAuthorized(exchange, ResultCode.TOKENIZER.getMsg(),ResultCode.TOKENIZER.getCode());

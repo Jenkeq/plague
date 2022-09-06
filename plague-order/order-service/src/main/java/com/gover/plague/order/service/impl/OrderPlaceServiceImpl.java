@@ -42,7 +42,6 @@ public class OrderPlaceServiceImpl implements OrderPlaceService {
      * @return
      */
     @Override
-    // @ApiAccessLog(desc = "根据订单ID查找订单")
     public ResultVO<OrderPlaceResp> placeOrder(OrderPlaceReq req) {
 
         // 查询库存
