@@ -10,4 +10,11 @@ public class AuthConstant {
 
     public static final String AES_SALT_VALUE = "EO8SJ8JG40GK48DN";
 
+    public static final String TOKEN_INFO_KEY = "token_info";
+
+    public static final String GATEWAY_KEY = "gateway_key";
+
+    public static final String NO_LOGIN_GATEWAY_KEY = "gate_key";
+
+    public static final String REQUEST_ID = "r_id";
 }

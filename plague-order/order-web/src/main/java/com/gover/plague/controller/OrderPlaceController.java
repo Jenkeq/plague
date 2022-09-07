@@ -23,11 +23,10 @@ public class OrderPlaceController {
     private OrderPlaceService orderPlaceService;
 
     @PostMapping("/v1/place")
-    @AccessVerify
-    // @ApiAccessLog(desc = "根据订单ID查找订单")
+    @AccessVerify(needLogin = false)
+    //@ApiAccessLog(desc = "查找订单")
     public ResultVO<OrderPlaceResp> findOrder(@RequestBody OrderPlaceReq req,@RequestHeader HttpHeaders headers){
-        String s = new String(Base64.decode(headers.getFirst("token-info")));
-        System.out.println(s);
+        HttpHeaders httpHeaders = headers;
         return orderPlaceService.placeOrder(req);
     }
 }

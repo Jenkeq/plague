@@ -79,6 +79,7 @@ secure:
       - "/sso/oauth/check_token"
       - "/sso/oauth/refresh_token"
       - "/actuator/**"
+      - "/api/order/v1/place"
 
 #dubbo配置
 dubbo:

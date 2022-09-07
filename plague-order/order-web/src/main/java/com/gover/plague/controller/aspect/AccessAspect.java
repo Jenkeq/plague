@@ -28,19 +28,19 @@ import javax.servlet.http.HttpServletRequest;
 public class AccessAspect {
     
     @Pointcut("@annotation(com.gover.plague.auth.annotation.AccessVerify)")
-    public void api_method() {}
+    public void accessMethod() {}
 
-    @Around("api_method()")
+    @Around("accessMethod()")
     public Object processVerify(ProceedingJoinPoint joinPoint) throws Throwable {
         Signature signature = joinPoint.getSignature();
         AccessVerify accessVerify = ((MethodSignature) signature).getMethod().getAnnotation(AccessVerify.class);
+        // 获取Request 类
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
         // 如果需要登录，则进行校验
         if(accessVerify.needLogin()){
-            String gateKey = "flag";
-            String tokenKey = "token-info";
-            // 得到request类
-            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-            HttpServletRequest request = attributes.getRequest();
+            String gateKey = AuthConstant.GATEWAY_KEY;
+            String tokenKey = AuthConstant.TOKEN_INFO_KEY;
             // 取出
             String flag = request.getHeader(gateKey);
             String jwToken = request.getHeader(tokenKey);
@@ -54,7 +54,19 @@ public class AccessAspect {
                 if (!StringUtils.equals(flag, flag2)) {
                     return ResultVO.failed(ResultCode.ILLEGAL_ACCESS, ResultCode.ILLEGAL_ACCESS.getMsg());
                 }
-            }catch (Exception e){
+            } catch (Exception e){
+                return ResultVO.failed(ResultCode.ILLEGAL_ACCESS, ResultCode.ILLEGAL_ACCESS.getMsg());
+            }
+        }
+        // 无需登录，但仍然需要经过网关
+        else {
+            String noLoginKey = request.getHeader(AuthConstant.NO_LOGIN_GATEWAY_KEY);
+            String rId = request.getHeader(AuthConstant.REQUEST_ID);
+            if(StringUtils.isBlank(rId)){
+                return ResultVO.failed(ResultCode.ILLEGAL_ACCESS, ResultCode.ILLEGAL_ACCESS.getMsg());
+            }
+            String enKey = MD5.create().digestHex(AESUtil.encrypt(String.valueOf(rId), AuthConstant.AES_SALT_VALUE));
+            if(!enKey.equals(noLoginKey)){
                 return ResultVO.failed(ResultCode.ILLEGAL_ACCESS, ResultCode.ILLEGAL_ACCESS.getMsg());
             }
         }
